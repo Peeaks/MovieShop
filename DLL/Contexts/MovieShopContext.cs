@@ -18,5 +18,7 @@ namespace DLL.Contexts {
         public DbSet<Order> Orders;
         public DbSet<Customer> Customers;
         public DbSet<Address> Addresses;
+
+        public string Stephanie;
     }
 }
