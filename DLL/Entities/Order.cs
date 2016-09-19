@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DLL.Entities {
-    class Order {
-        public int Id { get; set; }
+    public class Order : AbstractEntity {
         public List<Movie> Movies { get; set; }
         public Customer Customer { get; set; }
         public DateTime Date { get; set; }

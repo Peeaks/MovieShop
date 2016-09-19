@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DLL.Entities {
-    public class Genre : AbstractEntity {
-        public string Name { get; set; }
-        public List<Movie> Movies { get; set; }
+    public abstract class AbstractEntity {
+        public int Id { get; set; }
     }
 }
