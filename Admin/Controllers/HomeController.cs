@@ -11,11 +11,16 @@ namespace Admin.Controllers {
         private readonly IManager<Genre> _genreManager = new DllFacade().GetGenreManager();
 
         public ActionResult Index() {
+            if (_genreManager.Read().Any()) {
+                _genreManager.Create(new Genre {
+                    Name = "Ost"
+                });
+            }
             var allGenres = _genreManager.Read();
             foreach (var genre in allGenres) {
                 Console.WriteLine(genre.Name);
             }
-            return View();
+            return View(_genreManager.Read());
         }
 
         public ActionResult About() {
