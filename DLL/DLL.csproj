@@ -59,8 +59,8 @@
     <Compile Include="Entities\Genre.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Order.cs" />
-    <Compile Include="Managers\GenreManager.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="Managers\GenreManager.cs" />
     <Compile Include="Managers\MovieManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,7 +11,7 @@ namespace DLL.Entities {
         public double Price { get; set; }
         public string ImageUrl { get; set; }
         public string TrailerUrl { get; set; }
-        public Genre Genre { get; set; }
-        public List<Order> Orders { get; set; }
+        public virtual Genre Genre { get; set; }
+        public virtual List<Order> Orders { get; set; }
     }
 }
