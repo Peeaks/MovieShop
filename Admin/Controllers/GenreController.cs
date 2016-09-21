@@ -10,6 +10,7 @@ using DLL.Entities;
 namespace Admin.Controllers {
     public class GenreController : Controller {
         private readonly IManager<Genre> _genreManager = new DllFacade().GetGenreManager();
+
         // GET: Genres
         public ActionResult Index() {
             return View(_genreManager.Read());
