@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DLL.Entities {
     public class Movie : AbstractEntity {
         public string Title { get; set; }
-        public DateTime Year { get; set; }
+        public int Year { get; set; }
         public double Price { get; set; }
         public string ImageUrl { get; set; }
         public string TrailerUrl { get; set; }
