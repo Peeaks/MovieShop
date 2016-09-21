@@ -9,10 +9,10 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class GenreController : Controller {
-        private IManager<Genre> _gm = new DllFacade().GetGenreManager();
+        private readonly IManager<Genre> _genreManager = new DllFacade().GetGenreManager();
         // GET: Genres
         public ActionResult Index() {
-            return View(_gm.Read());
+            return View(_genreManager.Read());
         }
 
         // GET: Genres/Details/5
@@ -20,7 +20,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = _gm.Read(id.Value);
+            Genre genre = _genreManager.Read(id.Value);
             if (genre == null) {
                 return HttpNotFound();
             }
@@ -39,7 +39,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name")] Genre genre) {
             if (ModelState.IsValid) {
-                _gm.Create(genre);
+                _genreManager.Create(genre);
                 return RedirectToAction("Index");
             }
 
@@ -51,7 +51,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = _gm.Read(id.Value);
+            Genre genre = _genreManager.Read(id.Value);
             if (genre == null) {
                 return HttpNotFound();
             }
@@ -65,7 +65,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] Genre genre) {
             if (ModelState.IsValid) {
-                _gm.Update(genre);
+                _genreManager.Update(genre);
                 return RedirectToAction("Index");
             }
             return View(genre);
@@ -76,7 +76,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = _gm.Read(id.Value);
+            Genre genre = _genreManager.Read(id.Value);
             if (genre == null) {
                 return HttpNotFound();
             }
@@ -87,7 +87,7 @@ namespace Admin.Controllers {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            _gm.Delete(id);
+            _genreManager.Delete(id);
             return RedirectToAction("Index");
         }
     }
