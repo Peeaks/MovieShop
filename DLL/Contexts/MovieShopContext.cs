@@ -1,12 +1,9 @@
 ﻿using System.Data.Entity;
 using DLL.Entities;
 
-namespace DLL.Contexts
-{
-    public class MovieShopContext : DbContext
-    {
-        public MovieShopContext() : base()
-        {
+namespace DLL.Contexts {
+    public class MovieShopContext : DbContext {
+        public MovieShopContext() : base() {
             
         }
 
