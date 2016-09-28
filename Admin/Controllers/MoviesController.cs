@@ -46,7 +46,8 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl")] Movie movie, int genreId) {
             if (ModelState.IsValid) {
-                movie.Genre = _genreManager.Read(genreId);
+                movie.Genre = new Genre {Id = genreId};
+                //movie.Genre = _genreManager.Read(genreId);
                 _movieManager.Create(movie);
                 return RedirectToAction("Index");
             }

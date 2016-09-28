@@ -9,6 +9,7 @@ namespace DLL {
 
         public Movie Create(Movie element) {
             using (var db = new MovieShopContext()) {
+                element.Genre = db.Genres.FirstOrDefault(x => element.Genre.Id == x.Id);
                 db.Movies.Add(element);
                 db.SaveChanges();
                 return element;
@@ -17,7 +18,8 @@ namespace DLL {
 
         public Movie Read(int id) {
             using (var db = new MovieShopContext()) {
-                return db.Movies.FirstOrDefault(x => x.Id == id);
+                //return db.Movies.Where(x => x.Id == id).Include(x => x.Genre).FirstOrDefault();
+                return db.Movies.Include(x => x.Genre).FirstOrDefault(x => x.Id == id);
             }
         }
 

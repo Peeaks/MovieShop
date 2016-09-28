@@ -8,11 +8,9 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class HomeController : Controller {
-        private readonly IManager<Genre> _genreManager = new DllFacade().GetGenreManager();
 
         public ActionResult Index() {
-            _genreManager.Create(new Genre() {Name = "Banan"});
-            return View(_genreManager.Read());
+            return View();
         }
 
         public ActionResult About() {
