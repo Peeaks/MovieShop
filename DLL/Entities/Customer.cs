@@ -9,7 +9,7 @@ namespace DLL.Entities {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public virtual Address Address { get; set; }
-        public virtual List<Order> Orders { get; set; }
+        public Address Address { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

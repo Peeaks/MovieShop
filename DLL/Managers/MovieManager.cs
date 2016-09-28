@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using DLL.Contexts;
 using DLL.Entities;
@@ -22,7 +23,7 @@ namespace DLL {
 
         public List<Movie> Read() {
             using (var db = new MovieShopContext()) {
-                return db.Movies.ToList();
+                return db.Movies.Include(b => b.Genre).ToList();
             }
         }
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Admin.Views.Movies;
 using DLL;
 using DLL.Contexts;
 using DLL.Entities;
@@ -13,6 +14,7 @@ using DLL.Entities;
 namespace Admin.Controllers {
     public class MoviesController : Controller {
         readonly IManager<Movie> _movieManager = new DllFacade().GetMovieManager();
+        readonly IManager<Genre> _genreManager = new DllFacade().GetGenreManager();
 
         // GET: Movies
         public ActionResult Index() {
@@ -33,7 +35,8 @@ namespace Admin.Controllers {
 
         // GET: Movies/Create
         public ActionResult Create() {
-            return View();
+            var viewModel = new CreateMovieViewModel {Genres = _genreManager.Read()};
+            return View(viewModel);
         }
 
         // POST: Movies/Create
@@ -41,8 +44,9 @@ namespace Admin.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl")] Movie movie) {
+        public ActionResult Create([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl")] Movie movie, int genreId) {
             if (ModelState.IsValid) {
+                movie.Genre = _genreManager.Read(genreId);
                 _movieManager.Create(movie);
                 return RedirectToAction("Index");
             }

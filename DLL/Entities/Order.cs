@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DLL.Entities {
     public class Order : AbstractEntity {
-        public virtual List<Movie> Movies { get; set; }
-        public virtual Customer Customer { get; set; }
+        public List<Movie> Movies { get; set; }
+        public Customer Customer { get; set; }
         //public DateTime Date { get; set; }
     }
 }
