@@ -44,10 +44,8 @@ namespace Admin.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl")] Movie movie, int genreId) {
+        public ActionResult Create([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl, Genre")] Movie movie) {
             if (ModelState.IsValid) {
-                movie.Genre = new Genre {Id = genreId};
-                //movie.Genre = _genreManager.Read(genreId);
                 _movieManager.Create(movie);
                 return RedirectToAction("Index");
             }
@@ -64,7 +62,8 @@ namespace Admin.Controllers {
             if (movie == null) {
                 return HttpNotFound();
             }
-            return View(movie);
+            var viewModel = new EditMovieViewModel {Genres = _genreManager.Read(), Movie = movie};
+            return View(viewModel);
         }
 
         // POST: Movies/Edit/5
@@ -72,8 +71,9 @@ namespace Admin.Controllers {
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl")] Movie movie) {
+        public ActionResult Edit([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl, Genre")] Movie movie) {
             if (ModelState.IsValid) {
+                //movie.Genre = new Genre{Id = genreId};
                 _movieManager.Update(movie);
                 return RedirectToAction("Index");
             }

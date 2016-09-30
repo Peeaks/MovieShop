@@ -6,7 +6,6 @@ using DLL.Entities;
 
 namespace DLL {
     internal class MovieManager : IManager<Movie> {
-
         public Movie Create(Movie element) {
             using (var db = new MovieShopContext()) {
                 element.Genre = db.Genres.FirstOrDefault(x => element.Genre.Id == x.Id);
@@ -18,7 +17,6 @@ namespace DLL {
 
         public Movie Read(int id) {
             using (var db = new MovieShopContext()) {
-                //return db.Movies.Where(x => x.Id == id).Include(x => x.Genre).FirstOrDefault();
                 return db.Movies.Include(x => x.Genre).FirstOrDefault(x => x.Id == id);
             }
         }
@@ -31,8 +29,14 @@ namespace DLL {
 
         public Movie Update(Movie element) {
             using (var db = new MovieShopContext()) {
-                db.Entry(element).State = System.Data.Entity.EntityState.Modified;
+                element.Genre = db.Genres.FirstOrDefault(x => element.Genre.Id == x.Id);
+                var originalMovie = db.Movies.Include(j => j.Genre).Single(j => j.Id == element.Id);
+                db.Entry(originalMovie).CurrentValues.SetValues(element);
+                originalMovie.Genre = element.Genre;
+
                 db.SaveChanges();
+
+
                 return element;
             }
         }
