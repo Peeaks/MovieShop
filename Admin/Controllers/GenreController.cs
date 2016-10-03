@@ -16,18 +16,6 @@ namespace Admin.Controllers {
             return View(_genreManager.Read());
         }
 
-        // GET: Genres/Details/5
-        public ActionResult Details(int? id) {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Genre genre = _genreManager.Read(id.Value);
-            if (genre == null) {
-                return HttpNotFound();
-            }
-            return View(genre);
-        }
-
         // GET: Genres/Create
         public ActionResult Create() {
             return View();
