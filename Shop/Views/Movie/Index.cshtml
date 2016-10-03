@@ -1,0 +1,29 @@
+﻿@model List<DLL.Entities.Movie>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @foreach (var movie in Model) {
+                <div class="row">
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="@movie.ImageUrl" alt="">
+                            <div class="caption">
+                                <h4 class="pull-right">$@movie.Price</h4>
+                                <h4>
+                                    <a href="#">@movie.Title</a>
+                                </h4>
+                                <p>
+                                    @movie.Year
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

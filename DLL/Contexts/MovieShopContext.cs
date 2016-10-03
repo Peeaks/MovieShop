@@ -3,7 +3,7 @@ using DLL.Entities;
 
 namespace DLL.Contexts {
     public class MovieShopContext : DbContext {
-        public MovieShopContext() : base() {
+        public MovieShopContext() : base("name=MovieDB") {
             
         }
 
