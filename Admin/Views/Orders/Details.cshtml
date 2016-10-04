@@ -1,0 +1,91 @@
+﻿@model DLL.Entities.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details on order number @Model.Id</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Customer info</h4>
+        <div class="row">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.FirstName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.FirstName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.LastName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.LastName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.Email)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.Address.StreetName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.Address.StreetName) @Html.DisplayNameFor(model => model.Customer.Address.StreetNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.Address.ZipCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.Address.ZipCode)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Customer.Address.Country)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Customer.Address.Country)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Product info</h4>
+        <div class="row">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Movie.Title)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Movie.Title)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Movie.Year)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Movie.Year)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Movie.Genre)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Movie.Genre.Name)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Movie.Price)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Movie.Price)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
