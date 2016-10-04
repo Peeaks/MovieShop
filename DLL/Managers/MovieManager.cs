@@ -36,7 +36,6 @@ namespace DLL {
 
                 db.SaveChanges();
 
-
                 return element;
             }
         }

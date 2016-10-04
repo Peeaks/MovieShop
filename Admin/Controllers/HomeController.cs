@@ -70,11 +70,11 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl, Genre")] Movie movie) {
             if (ModelState.IsValid) {
-                //movie.Genre = new Genre{Id = genreId};
                 _movieManager.Update(movie);
                 return RedirectToAction("Index");
             }
-            return View(movie);
+            var viewModel = new EditMovieViewModel { Genres = _genreManager.Read(), Movie = movie };
+            return View(viewModel);
         }
 
         // GET: Movies/Delete/5

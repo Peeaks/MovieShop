@@ -11,7 +11,6 @@ namespace DLL.Entities {
         public string Title { get; set; }
 
         [Required]
-        [Range(1950, 2050)]
         public int Year { get; set; }
 
         [Required]
