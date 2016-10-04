@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop", "Shop\Shop.csproj", "{18649E00-E71D-45EB-8AA8-804FDF3454F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthTest", "AuthTest\AuthTest.csproj", "{C726630C-8693-405B-A98A-608F81726DDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{18649E00-E71D-45EB-8AA8-804FDF3454F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18649E00-E71D-45EB-8AA8-804FDF3454F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18649E00-E71D-45EB-8AA8-804FDF3454F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C726630C-8693-405B-A98A-608F81726DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C726630C-8693-405B-A98A-608F81726DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C726630C-8693-405B-A98A-608F81726DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C726630C-8693-405B-A98A-608F81726DDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
