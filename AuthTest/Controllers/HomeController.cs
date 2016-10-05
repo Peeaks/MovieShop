@@ -48,7 +48,7 @@ namespace AuthTest.Controllers {
         [Authorize]
         [HttpPost]
         public ActionResult BuyPage([Bind(Include = "Id, FirstName, LastName, Email, Address")] Customer customer,
-            [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie) {
+            [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie, string promoCode) {
             if (ModelState.IsValid) {
                 var order = new Order {
                     Customer = customer,
