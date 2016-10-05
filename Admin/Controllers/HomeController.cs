@@ -10,8 +10,8 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class HomeController : Controller {
-        readonly IManager<Movie> _movieManager = new DllFacade().GetMovieManager();
-        readonly IManager<Genre> _genreManager = new DllFacade().GetGenreManager();
+        readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
+        readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
 
         // GET: Movies
         public ActionResult Index() {

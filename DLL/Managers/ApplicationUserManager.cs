@@ -8,8 +8,7 @@ using DLL.Contexts;
 using DLL.Entities;
 
 namespace DLL.Managers {
-    public class ApplicationUserManager {
-
+    class ApplicationUserManager : IManager<ApplicationUser, string> {
         public ApplicationUser Create(ApplicationUser element) {
             using (var db = new MovieShopContext()) {
                 db.Users.Add(element);
@@ -40,11 +39,15 @@ namespace DLL.Managers {
 
         public ApplicationUser Update(ApplicationUser element) {
             using (var db = new MovieShopContext()) {
-                db.Entry(element).State = EntityState.Modified;
+                var originalUser = db.Users.Include(j => j.Address).Single(j => j.Id == element.Id);
+                db.Entry(originalUser).CurrentValues.SetValues(element);
+                originalUser.Address = element.Address;
+
                 db.SaveChanges();
+
                 return element;
+
             }
         }
-
     }
 }

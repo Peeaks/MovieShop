@@ -15,7 +15,7 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class PromoCodesController : Controller {
-        private readonly IManager<PromoCode> _promoCodeManager = new DllFacade().GetPromoCodeManager();
+        private readonly IManager<PromoCode, int> _promoCodeManager = new DllFacade().GetPromoCodeManager();
 
         // GET: PromoCodes
         public ActionResult Index() {

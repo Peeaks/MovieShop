@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using DLL.Entities;
 
 namespace DLL {
-    public interface IManager<T> where T : AbstractEntity {
+    public interface IManager<T, R> {
         T Create(T element);
-        T Read(int id);
+        T Read(R id);
         List<T> Read();
         T Update(T element);
-        bool Delete(int id);
+        bool Delete(R id);
     }
 }

@@ -5,7 +5,7 @@ using DLL.Contexts;
 using DLL.Entities;
 
 namespace DLL {
-    internal class MovieManager : IManager<Movie> {
+    internal class MovieManager : IManager<Movie, int> {
         public Movie Create(Movie element) {
             using (var db = new MovieShopContext()) {
                 element.Genre = db.Genres.FirstOrDefault(x => element.Genre.Id == x.Id);

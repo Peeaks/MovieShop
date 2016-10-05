@@ -4,7 +4,7 @@ using DLL.Contexts;
 using DLL.Entities;
 
 namespace DLL.Managers {
-    class GenreManager : IManager<Genre> {
+    class GenreManager : IManager<Genre, int> {
         public Genre Create(Genre t) {
             using (var db = new MovieShopContext()) {
                 db.Genres.Add(t);

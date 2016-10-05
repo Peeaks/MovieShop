@@ -1,46 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using AuthTest.Controllers;
+using DLL.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace AuthTest.Models
-{
-    public class IndexViewModel
-    {
-        public bool HasPassword { get; set; }
-        public IList<UserLoginInfo> Logins { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool TwoFactor { get; set; }
-        public bool BrowserRemembered { get; set; }
+namespace AuthTest.Models {
+    public class IndexViewModel {
+        public ApplicationUser ApplicationUser { get; set; }
+        public string Message { get; set; }
     }
 
-    public class ManageLoginsViewModel
-    {
-        public IList<UserLoginInfo> CurrentLogins { get; set; }
-        public IList<AuthenticationDescription> OtherLogins { get; set; }
-    }
-
-    public class FactorViewModel
-    {
-        public string Purpose { get; set; }
-    }
-
-    public class SetPasswordViewModel
-    {
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New password")]
-        public string NewPassword { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm new password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
-    }
-
-    public class ChangePasswordViewModel
-    {
+    public class ChangePasswordViewModel {
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]
@@ -58,29 +29,30 @@ namespace AuthTest.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class AddPhoneNumberViewModel
-    {
+    public class ChangeNameViewModel {
         [Required]
-        [Phone]
-        [Display(Name = "Phone Number")]
-        public string Number { get; set; }
+        [Display(Name = "New first name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "New last name")]
+        public string LastName { get; set; }
     }
 
-    public class VerifyPhoneNumberViewModel
-    {
+    public class ChangeAddressViewModel {
         [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
+        [Display(Name = "Street")]
+        public string StreetName { get; set; }
 
         [Required]
-        [Phone]
-        [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
-    }
+        [Display(Name = "Number")]
+        public string StreetNumber { get; set; }
 
-    public class ConfigureTwoFactorViewModel
-    {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
+        [Required]
+        public string Country { get; set; }
+
+        [Required]
+        [Display(Name = "Zip Code")]
+        public string ZipCode { get; set; }
     }
 }

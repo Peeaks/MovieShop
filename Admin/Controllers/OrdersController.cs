@@ -14,7 +14,7 @@ namespace Admin.Controllers
 {
     public class OrdersController : Controller
     {
-        private readonly IManager<Order> _orderManager = new DllFacade().GetOrderManager();
+        private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
 
         // GET: Orders
         public ActionResult Index()

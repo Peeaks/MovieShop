@@ -8,17 +8,20 @@ using DLL.Managers;
 
 namespace DLL {
     public class DllFacade {
-        public IManager<Movie> GetMovieManager() {
+        public IManager<Movie, int> GetMovieManager() {
             return new MovieManager();
         }
-        public IManager<Genre> GetGenreManager() {
+        public IManager<Genre, int> GetGenreManager() {
             return new GenreManager();
         }
-        public IManager<Order> GetOrderManager() {
+        public IManager<Order, int> GetOrderManager() {
             return new OrderManager();
         }
-        public IManager<PromoCode> GetPromoCodeManager() {
+        public IManager<PromoCode, int> GetPromoCodeManager() {
             return new PromoCodeManager();
+        }
+        public IManager<ApplicationUser, string> GetApplicationUserManager() {
+            return new ApplicationUserManager();
         }
     }
 }

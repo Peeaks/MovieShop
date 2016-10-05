@@ -14,12 +14,10 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace AuthTest.Controllers {
     public class HomeController : Controller {
-        private readonly IManager<Movie> _movieManager = new DllFacade().GetMovieManager();
-        private readonly IManager<Order> _orderManager = new DllFacade().GetOrderManager();
-        private readonly IManager<PromoCode> _promoCodeManager = new DllFacade().GetPromoCodeManager();
-
-        private readonly DLL.Managers.ApplicationUserManager _applicationUserManager =
-            new DLL.Managers.ApplicationUserManager();
+        private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
+        private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
+        private readonly IManager<PromoCode, int> _promoCodeManager = new DllFacade().GetPromoCodeManager();
+        private readonly IManager<ApplicationUser, string> _applicationUserManager = new DllFacade().GetApplicationUserManager();
 
         // GET: Movie
         public ActionResult Index() {

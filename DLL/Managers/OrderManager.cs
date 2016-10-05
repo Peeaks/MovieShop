@@ -6,7 +6,7 @@ using DLL.Contexts;
 using DLL.Entities;
 
 namespace DLL.Managers {
-    internal class OrderManager : IManager<Order> {
+    internal class OrderManager : IManager<Order, int> {
         public Order Create(Order element) {
             using (var db = new MovieShopContext()) {
                 element.ApplicationUser =

@@ -8,7 +8,7 @@ using DLL.Contexts;
 using DLL.Entities;
 
 namespace DLL.Managers {
-    class PromoCodeManager : IManager<PromoCode> {
+    class PromoCodeManager : IManager<PromoCode, int> {
         public PromoCode Create(PromoCode element) {
             using (var db = new MovieShopContext()) {
                 db.PromoCodes.Add(element);
