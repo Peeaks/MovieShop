@@ -2,45 +2,49 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using DLL.Contexts;
 using DLL.Entities;
 
-namespace DLL {
-    internal class AddressManager : IManager<Address> {
-        public Address Create(Address element) {
+namespace DLL.Managers {
+    public class ApplicationUserManager {
+
+        public ApplicationUser Create(ApplicationUser element) {
             using (var db = new MovieShopContext()) {
-                db.Addresses.Add(element);
+                db.Users.Add(element);
                 db.SaveChanges();
                 return element;
             }
         }
 
-        public bool Delete(int id) {
+        public bool Delete(string id) {
             using (var db = new MovieShopContext()) {
-                db.Entry(db.Addresses.FirstOrDefault(x => x.Id == id)).State = System.Data.Entity.EntityState.Deleted;
+                db.Entry(db.Users.FirstOrDefault(x => x.Id == id)).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
-                return db.Addresses.FirstOrDefault(x => x.Id == id) == null;
+                return db.Users.FirstOrDefault(x => x.Id == id) == null;
             }
         }
 
-        public List<Address> Read() {
+        public List<ApplicationUser> Read() {
             using (var db = new MovieShopContext()) {
-                return db.Addresses.ToList();
+                return db.Users.Include(x => x.Address).ToList();
             }
         }
 
-        public Address Read(int id) {
+        public ApplicationUser Read(string id) {
             using (var db = new MovieShopContext()) {
-                return db.Addresses.FirstOrDefault(x => x.Id == id);
+                return db.Users.Include(x => x.Address).FirstOrDefault(x => x.Id == id);
             }
         }
 
-        public Address Update(Address element) {
+        public ApplicationUser Update(ApplicationUser element) {
             using (var db = new MovieShopContext()) {
                 db.Entry(element).State = EntityState.Modified;
                 db.SaveChanges();
                 return element;
             }
         }
+
     }
 }

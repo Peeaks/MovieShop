@@ -45,20 +45,20 @@ namespace Shop.Controllers {
             return View(buyPageViewModel);
         }
 
-        [HttpPost]
-        public ActionResult BuyPage([Bind(Include = "Id, FirstName, LastName, Email, Address")] Customer customer,
-            [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie) {
-            if (ModelState.IsValid) {
-                var order = new Order {
-                    Customer = customer,
-                    Movie = movie
-                };
+        //[HttpPost]
+        //public ActionResult BuyPage([Bind(Include = "Id, FirstName, LastName, Email, Address")] Customer customer,
+        //    [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie) {
+        //    if (ModelState.IsValid) {
+        //        var order = new Order {
+        //            Customer = customer,
+        //            Movie = movie
+        //        };
 
-                _orderManager.Create(order);
+        //        _orderManager.Create(order);
 
-                return View("ThankYou");
-            }
-            return View(new BuyPageViewModel { Movie = movie, Customer = customer });
-        }
+        //        return View("ThankYou");
+        //    }
+        //    return View(new BuyPageViewModel { Movie = movie, Customer = customer });
+        //}
     }
 }

@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DLL.Entities {
-    public class Customer : AbstractEntity {
+    public class ApplicationUser : IdentityUser {
         [Required]
         [Display (Name = "First name")]
         public string FirstName { get; set; }
-
         [Required]
-        [Display(Name = "Last name")]
+        [Display (Name = "Last name")]
         public string LastName { get; set; }
-
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
         public Address Address { get; set; }
     }
 }

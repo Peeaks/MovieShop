@@ -9,7 +9,8 @@ namespace DLL.Managers {
     internal class OrderManager : IManager<Order> {
         public Order Create(Order element) {
             using (var db = new MovieShopContext()) {
-
+                element.ApplicationUser =
+                    db.Users.Include(x => x.Address).FirstOrDefault(x => element.ApplicationUser.Id == x.Id);
                 element.Movie = db.Movies.Include(x => x.Genre).FirstOrDefault(x => element.Movie.Id == x.Id);
                 if (element.PromoCode != null) {
                     element.PromoCode = db.PromoCodes.FirstOrDefault(x => element.PromoCode.Code == x.Code);
@@ -24,13 +25,15 @@ namespace DLL.Managers {
 
         public Order Read(int id) {
             using (var db = new MovieShopContext()) {
-                return db.Orders.Include(x => x.Customer.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).FirstOrDefault(x => x.Id == id);
+                //return db.Orders.Include(x => x.ApplicationUser.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).FirstOrDefault(x => x.Id == id);
+                return null;
             }
         }
 
         public List<Order> Read() {
             using (var db = new MovieShopContext()) {
-                return db.Orders.Include(x => x.Customer.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).ToList();
+                //return db.Orders.Include(x => x.ApplicationUser.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).ToList();
+                return null;
             }
         }
 

@@ -4,15 +4,22 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AuthTest.Models;
 using AuthTest.Views.Home;
 using DLL;
 using DLL.Entities;
+using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace AuthTest.Controllers {
     public class HomeController : Controller {
         private readonly IManager<Movie> _movieManager = new DllFacade().GetMovieManager();
         private readonly IManager<Order> _orderManager = new DllFacade().GetOrderManager();
         private readonly IManager<PromoCode> _promoCodeManager = new DllFacade().GetPromoCodeManager();
+
+        private readonly DLL.Managers.ApplicationUserManager _applicationUserManager =
+            new DLL.Managers.ApplicationUserManager();
 
         // GET: Movie
         public ActionResult Index() {
@@ -31,6 +38,7 @@ namespace AuthTest.Controllers {
             return View(movie);
         }
 
+
         [Authorize]
         public ActionResult BuyPage(int? id) {
             if (id == null) {
@@ -41,37 +49,52 @@ namespace AuthTest.Controllers {
                 return HttpNotFound();
             }
 
-            var buyPageViewModel = new BuyPageViewModel {Movie = movie, ErrorString = ""};
+            ApplicationUser user = _applicationUserManager.Read(User.Identity.GetUserId());
+
+            var buyPageViewModel = new BuyPageViewModel {ApplicationUser = user, Movie = movie, ErrorString = ""};
 
             return View(buyPageViewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public ActionResult BuyPage([Bind(Include = "Id, FirstName, LastName, Email, Address")] Customer customer,
-            [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie, string promoCode) {
+        public ActionResult BuyPage(
+            [Bind(Include = "Id, FirstName, LastName, Email, Address")] ApplicationUser applicationUser,
+            [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie,
+            [Bind(Include = "Code")] PromoCode promoCode) {
             if (ModelState.IsValid) {
                 Order order;
 
                 var allPromoCodes = _promoCodeManager.Read();
-                if (promoCode.Equals("")) {
-                    order = new Order {Customer = customer, Movie = movie};
+                if (promoCode.Code.IsNullOrWhiteSpace()) {
+                    order = new Order {ApplicationUser = applicationUser, Movie = movie};
                 } else {
-                    var promoFound = allPromoCodes.FirstOrDefault(x => x.Code == promoCode);
-                    order = new Order {Customer = customer, Movie = movie, PromoCode = promoFound};
-
+                    var promoFound = allPromoCodes.FirstOrDefault(x => x.Code == promoCode.Code);
                     if (promoFound != null && !promoFound.IsValid) {
-                        return View(new BuyPageViewModel {Movie = movie, Customer = customer, PromoCode = promoCode, ErrorString = "The promo code is invalid"});
+                        return
+                            View(new BuyPageViewModel {
+                                Movie = movie,
+                                ApplicationUser = applicationUser,
+                                PromoCode = promoCode,
+                                ErrorString = "The promo code is invalid"
+                            });
                     } else if (promoFound == null) {
-                        return View(new BuyPageViewModel { Movie = movie, Customer = customer, PromoCode = promoCode, ErrorString = "The promo code does not exist"});
+                        return
+                            View(new BuyPageViewModel {
+                                Movie = movie,
+                                ApplicationUser = applicationUser,
+                                PromoCode = promoCode,
+                                ErrorString = "The promo code does not exist"
+                            });
                     }
+                    order = new Order {ApplicationUser = applicationUser, Movie = movie, PromoCode = promoFound};
                 }
 
                 _orderManager.Create(order);
 
                 return View("ThankYou");
             }
-            return View(new BuyPageViewModel {Movie = movie, Customer = customer, ErrorString = ""});
+            return View(new BuyPageViewModel {Movie = movie, ApplicationUser = applicationUser, ErrorString = ""});
         }
     }
 }

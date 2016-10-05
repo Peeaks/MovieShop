@@ -13,13 +13,22 @@
 
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Movie.Id)
                 @Html.HiddenFor(model => model.Movie.Genre.Name)
                 @Html.HiddenFor(model => model.Movie.Genre.Id)
-                @Html.HiddenFor(model => model.Movie.Price)
-                @Html.HiddenFor(model => model.Movie.TrailerUrl)
                 @Html.HiddenFor(model => model.Movie.ImageUrl)
+                @Html.HiddenFor(model => model.Movie.Price)
+                @Html.HiddenFor(model => model.Movie.Title)
+                @Html.HiddenFor(model => model.Movie.TrailerUrl)
                 @Html.HiddenFor(model => model.Movie.Year)
+                @Html.HiddenFor(model => model.Movie.Id)
+
+                @Html.HiddenFor(model => model.ApplicationUser.Id)
+                @Html.HiddenFor(model => model.ApplicationUser.FirstName)
+                @Html.HiddenFor(model => model.ApplicationUser.LastName)
+                @Html.HiddenFor(model => model.ApplicationUser.Address.Country)
+                @Html.HiddenFor(model => model.ApplicationUser.Address.StreetNumber)
+                @Html.HiddenFor(model => model.ApplicationUser.Address.ZipCode)
+                @Html.HiddenFor(model => model.ApplicationUser.Address.StreetName)
 
                 <h4>Movie</h4>
                 
@@ -39,62 +48,62 @@
                 <h4>Personal info</h4>
                 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Customer.FirstName, htmlAttributes: new {@class = "control-label col-md-2"})
+                    @Html.LabelFor(model => model.ApplicationUser.FirstName, htmlAttributes: new {@class = "control-label col-md-2"})
                     <div class="col-md-10">
-                        @Html.TextBoxFor(x => x.Customer.FirstName, new {@class = "form-control"})
-                        @Html.ValidationMessageFor(model => model.Customer.FirstName, "", new { @class = "text-danger"})
+                        @Html.TextBoxFor(x => x.ApplicationUser.FirstName, new { @readonly = "readonly", @class = "form-control"})
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.FirstName, "", new { @class = "text-danger"})
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Customer.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ApplicationUser.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(x => x.Customer.LastName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Customer.LastName, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.ApplicationUser.LastName, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.LastName, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Customer.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ApplicationUser.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(x => x.Customer.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Customer.Email, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.ApplicationUser.Email, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.Email, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Customer.Address.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ApplicationUser.Address.StreetName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-6">
-                        @Html.TextBoxFor(x => x.Customer.Address.StreetName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Customer.Address.StreetName, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.ApplicationUser.Address.StreetName, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.Address.StreetName, "", new { @class = "text-danger" })
                     </div>
-                    @Html.LabelFor(model => model.Customer.Address.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ApplicationUser.Address.StreetNumber, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-2">
-                        @Html.TextBoxFor(x => x.Customer.Address.StreetNumber, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Customer.Address.StreetNumber, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.ApplicationUser.Address.StreetNumber, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.Address.StreetNumber, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Customer.Address.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ApplicationUser.Address.ZipCode, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(x => x.Customer.Address.ZipCode, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Customer.Address.ZipCode, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.ApplicationUser.Address.ZipCode, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.Address.ZipCode, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.Customer.Address.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.ApplicationUser.Address.Country, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBoxFor(x => x.Customer.Address.Country, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Customer.Address.Country, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(x => x.ApplicationUser.Address.Country, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ApplicationUser.Address.Country, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    @Html.Label("Promo Code", htmlAttributes: new {@class = "control-label col-md-2"})
+                    @Html.LabelFor(model => model.PromoCode.Code, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.TextBox("promoCode", Model.ErrorString, new {@class = "form-control"})
+                        @Html.TextBoxFor(x => x.PromoCode.Code, new { @class = "form-control" })
                     </div>
                 </div>
 

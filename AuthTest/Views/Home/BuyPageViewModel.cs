@@ -1,10 +1,12 @@
-﻿using DLL.Entities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using DLL.Entities;
 
 namespace AuthTest.Views.Home {
+    [NotMapped]
     public class BuyPageViewModel {
-        public Customer Customer { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
         public Movie Movie { get; set; }
-        public string PromoCode { get; set; }
+        public PromoCode PromoCode { get; set; }
         public string ErrorString { get; set; }
     }
 }
