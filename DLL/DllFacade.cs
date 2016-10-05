@@ -23,5 +23,8 @@ namespace DLL {
         public IManager<Address> GetAddressManager() {
             return new AddressManager();
         }
+        public IManager<PromoCode> GetPromoCodeManager() {
+            return new PromoCodeManager();
+        }
     }
 }

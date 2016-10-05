@@ -160,12 +160,14 @@
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\PromoCodesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Home\CreateMovieViewModel.cs" />
     <Compile Include="Views\Home\EditMovieViewModel.cs" />
+    <Compile Include="Views\PromoCodes\PromoCodeDeleteViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -220,6 +222,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\PromoCodes\Create.cshtml" />
+    <Content Include="Views\PromoCodes\Delete.cshtml" />
+    <Content Include="Views\PromoCodes\Edit.cshtml" />
+    <Content Include="Views\PromoCodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

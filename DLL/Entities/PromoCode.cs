@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DLL.Entities {
-    class PromoCode : AbstractEntity{
+    public class PromoCode : AbstractEntity{
         public string Code { get; set; }
         public int Discount { get; set; }
+        public bool IsValid { get; set; }
     }
 }
