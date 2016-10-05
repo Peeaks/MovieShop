@@ -12,7 +12,6 @@ namespace AuthTest.Controllers {
     public class HomeController : Controller {
         private readonly IManager<Movie> _movieManager = new DllFacade().GetMovieManager();
         private readonly IManager<Order> _orderManager = new DllFacade().GetOrderManager();
-        private readonly IManager<Customer> _customerManager = new DllFacade().GetCustomerManager();
 
         // GET: Movie
         public ActionResult Index() {
