@@ -1,4 +1,4 @@
-﻿@model Shop.Views.Movies.BuyPageViewModel
+﻿@model AuthTest.Views.Home.BuyPageViewModel
 @{
     ViewBag.Title = "BuyPage";
 }
@@ -22,6 +22,11 @@
                 @Html.HiddenFor(model => model.Movie.Year)
 
                 <h4>Movie</h4>
+                
+                @if (Model.ErrorString.Any()) {
+                    <p>@Model.ErrorString</p>
+                }
+
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Movie.Title, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -89,10 +94,9 @@
                 <div class="form-group">
                     @Html.Label("Promo Code", htmlAttributes: new {@class = "control-label col-md-2"})
                     <div class="col-md-10">
-                        @Html.TextBox("promoCode", "", new {@class = "form-control"})
+                        @Html.TextBox("promoCode", Model.ErrorString, new {@class = "form-control"})
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
@@ -101,8 +105,6 @@
                 </div>
             </div>
         }
-        
-
     </div>
 
     <div class="col-md-5">

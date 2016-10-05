@@ -33,7 +33,7 @@
                     @Html.DisplayNameFor(model => model.Customer.Address.StreetName)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.Address.StreetName) @Html.DisplayNameFor(model => model.Customer.Address.StreetNumber)
+                    @Html.DisplayFor(model => model.Customer.Address.StreetName) @Html.DisplayFor(model => model.Customer.Address.StreetNumber)
                 </dd>
                 <dt>
                     @Html.DisplayNameFor(model => model.Customer.Address.ZipCode)
@@ -47,7 +47,6 @@
                 <dd>
                     @Html.DisplayFor(model => model.Customer.Address.Country)
                 </dd>
-
             </dl>
         </div>
     </div>
@@ -80,7 +79,12 @@
                 <dd>
                     @Html.DisplayFor(model => model.Movie.Price)
                 </dd>
-
+                <dt>
+                    @Html.DisplayNameFor(model => model.PromoCode)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PromoCode.Code)
+                </dd>
             </dl>
         </div>
     </div>

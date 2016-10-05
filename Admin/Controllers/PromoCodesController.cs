@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -83,7 +84,7 @@ namespace Admin.Controllers {
         public ActionResult DeleteConfirmed(int id) {
             try {
                 _promoCodeManager.Delete(id);
-            } catch (SqlException) {
+            } catch (DbUpdateException) {
                 return View(new PromoCodeDeleteViewModel {PromoCode = _promoCodeManager.Read(id), ShitWentWrong = true});
             }
             return RedirectToAction("Index");

@@ -38,17 +38,18 @@
             </dl>
         </div>
         <div class="row">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="@Model.TrailerUrl"></iframe>
+            <div class="col-md-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="@Model.TrailerUrl" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-6" >
-        <img src="@Model.ImageUrl" width="300"/>
+        <img style="max-height: 600px; margin-left: auto; margin-right: auto; margin-top: 20px" class="img-responsive" src="@Model.ImageUrl"/>
     </div>
 </div>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

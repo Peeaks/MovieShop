@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using DLL.Contexts;
@@ -10,6 +11,10 @@ namespace DLL.Managers {
             using (var db = new MovieShopContext()) {
 
                 element.Movie = db.Movies.Include(x => x.Genre).FirstOrDefault(x => element.Movie.Id == x.Id);
+                if (element.PromoCode != null) {
+                    element.PromoCode = db.PromoCodes.FirstOrDefault(x => element.PromoCode.Code == x.Code);
+                }
+                element.Time = DateTime.Now;
                 db.Orders.Add(element);
                 db.SaveChanges();
 
@@ -19,13 +24,13 @@ namespace DLL.Managers {
 
         public Order Read(int id) {
             using (var db = new MovieShopContext()) {
-                return db.Orders.Include(x => x.Customer.Address).Include(x => x.Movie.Genre).FirstOrDefault(x => x.Id == id);
+                return db.Orders.Include(x => x.Customer.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).FirstOrDefault(x => x.Id == id);
             }
         }
 
         public List<Order> Read() {
             using (var db = new MovieShopContext()) {
-                return db.Orders.Include(x => x.Customer.Address).Include(x => x.Movie.Genre).ToList();
+                return db.Orders.Include(x => x.Customer.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).ToList();
             }
         }
 
