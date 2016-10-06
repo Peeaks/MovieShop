@@ -88,11 +88,24 @@ namespace AuthTest.Controllers {
                     order = new Order {ApplicationUser = applicationUser, Movie = movie, PromoCode = promoFound};
                 }
 
-                _orderManager.Create(order);
-
-                return View("ThankYou");
+                //_orderManager.Create(order);
+                if (order.PromoCode != null) {
+                    double discount = order.Movie.Price * order.PromoCode.Discount * 0.01;
+                    order.Movie.Price = order.Movie.Price - discount;
+                }
+                return View("Confirm", order);
             }
             return View(new BuyPageViewModel {Movie = movie, ApplicationUser = applicationUser, ErrorString = ""});
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult Confirm(Order order)
+        {
+
+            _orderManager.Create(order);
+
+            return View("ThankYou");
         }
     }
 }

@@ -1,0 +1,216 @@
+﻿@using Microsoft.Ajax.Utilities
+@model DLL.Entities.Order
+@{
+    ViewBag.Title = "Confirm";
+}
+
+<h2>Confirm</h2>
+
+<div class="container" style="padding-top: 30px">
+<div class="col-md-7">
+
+    @using (Html.BeginForm("Confirm", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new
+            {
+                @class = "text-danger"
+            })
+            @Html.HiddenFor(model => model.Movie.Genre.Name)
+            @Html.HiddenFor(model => model.Movie.Genre.Id)
+            @Html.HiddenFor(model => model.Movie.ImageUrl)
+            @Html.HiddenFor(model => model.Movie.Price)
+            @Html.HiddenFor(model => model.Movie.Title)
+            @Html.HiddenFor(model => model.Movie.TrailerUrl)
+            @Html.HiddenFor(model => model.Movie.Year)
+            @Html.HiddenFor(model => model.Movie.Id)
+
+            @Html.HiddenFor(model => model.ApplicationUser.Id)
+            @Html.HiddenFor(model => model.ApplicationUser.FirstName)
+            @Html.HiddenFor(model => model.ApplicationUser.LastName)
+            @Html.HiddenFor(model => model.ApplicationUser.Address.Country)
+            @Html.HiddenFor(model => model.ApplicationUser.Address.StreetNumber)
+            @Html.HiddenFor(model => model.ApplicationUser.Address.ZipCode)
+            @Html.HiddenFor(model => model.ApplicationUser.Address.StreetName)
+
+            <h4>Movie</h4>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Movie.Title, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Movie.Title, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                </div>
+            </div>
+
+            <h4>Personal info</h4>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationUser.FirstName, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(x => x.ApplicationUser.FirstName, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.FirstName, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationUser.LastName, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(x => x.ApplicationUser.LastName, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.LastName, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationUser.Email, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(x => x.ApplicationUser.Email, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.Email, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationUser.Address.StreetName, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-6">
+                    @Html.TextBoxFor(x => x.ApplicationUser.Address.StreetName, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.Address.StreetName, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+                @Html.LabelFor(model => model.ApplicationUser.Address.StreetNumber, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-2">
+                    @Html.TextBoxFor(x => x.ApplicationUser.Address.StreetNumber, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.Address.StreetNumber, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationUser.Address.ZipCode, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(x => x.ApplicationUser.Address.ZipCode, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.Address.ZipCode, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApplicationUser.Address.Country, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(x => x.ApplicationUser.Address.Country, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                    @Html.ValidationMessageFor(model => model.ApplicationUser.Address.Country, "", new
+                    {
+                        @class = "text-danger"
+                    })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PromoCode.Code, new
+                {
+                    @class = "control-label col-md-2"
+                })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.PromoCode.Code, new
+                    {
+                        @readonly = "readonly",
+                        @class = "form-control"
+                    })
+                </div>
+            </div>
+
+            @if (Model.PromoCode != null)
+            {
+                <div class="form-group">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-10">
+                        <p>You are getting a @Model.PromoCode.Discount% discount</p>
+                    </div>
+
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Buy @(Model.Movie.Price) $" class="btn btn-default"/>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="col-md-5">
+    <img class="img-responsive" src="@Model.Movie.ImageUrl" alt="">
+</div>
+</div>
