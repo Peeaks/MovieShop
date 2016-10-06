@@ -154,7 +154,7 @@ namespace AuthTest.Controllers {
             _orderManager.Create(order);
             new Mailer().SendReceipt(order);
 
-            return View("ThankYou");
+            return View("ThankYou", order);
         }
     }
 }
