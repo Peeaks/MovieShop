@@ -116,7 +116,7 @@ namespace AuthTest.Controllers {
 
                 var allPromoCodes = _promoCodeManager.Read();
                 if (promoCode.Code.IsNullOrWhiteSpace()) {
-                    order = new Order {ApplicationUser = applicationUser, Movie = movie};
+                    order = new Order {ApplicationUser = applicationUser, Movie = movie, /*TotalPrice = movie.Price*/};
                 } else {
                     var promoFound = allPromoCodes.FirstOrDefault(x => x.Code == promoCode.Code);
                     if (promoFound != null && !promoFound.IsValid) {
@@ -136,13 +136,13 @@ namespace AuthTest.Controllers {
                                 ErrorString = "The promo code does not exist"
                             });
                     }
-                    order = new Order {ApplicationUser = applicationUser, Movie = movie, PromoCode = promoFound};
+                    order = new Order {ApplicationUser = applicationUser, Movie = movie, PromoCode = promoFound, /*TotalPrice = movie.Price*/};
                 }
 
                 //_orderManager.Create(order);
                 if (order.PromoCode != null) {
-                    double discount = order.Movie.Price*order.PromoCode.Discount*0.01;
-                    order.Movie.Price = order.Movie.Price - discount;
+                    //double discount = order.Movie.Price*order.PromoCode.Discount*0.01;
+                    //order.TotalPrice = order.Movie.Price - discount;
                 }
                 return View("Confirm", order);
             }
@@ -153,7 +153,7 @@ namespace AuthTest.Controllers {
         [HttpPost]
         public ActionResult Confirm(Order order) {
             _orderManager.Create(order);
-            new Mailer().SendReceipt(order);
+            new MailFacade().SendReceiptMail(order);
 
             return View("ThankYou", order);
         }

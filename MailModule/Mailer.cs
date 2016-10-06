@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using DLL.Entities;
 
 namespace MailModule {
-    public class Mailer {
+    class Mailer {
         public void SendReceipt(Order order) {
             var fromAddress = new MailAddress("NoReplyPineappleInc@gmail.com", "Pineapple Inc.");
             var toAddress = new MailAddress(order.ApplicationUser.Email,

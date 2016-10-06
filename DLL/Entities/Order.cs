@@ -10,5 +10,16 @@ namespace DLL.Entities {
         public ApplicationUser ApplicationUser { get; set; }
         public DateTime Time { get; set; }
         public PromoCode PromoCode { get; set; }
+
+        public double TotalPrice {
+            get {
+                if (this.PromoCode != null) {
+                    double discount = this.Movie.Price * this.PromoCode.Discount * 0.01;
+                    return this.Movie.Price - discount;
+                } else {
+                    return this.Movie.Price;
+                }
+            }
+        }
     }
 }

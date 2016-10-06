@@ -48,9 +48,6 @@ namespace AuthTest.Controllers {
             var userOrders = new List<Order>();
             foreach (var order in allOrders) {
                 if (order.ApplicationUser.Id == User.Identity.GetUserId()) {
-                    if (order.PromoCode != null) {
-                        order.Movie.Price -= (order.Movie.Price * order.PromoCode.Discount * 0.01);
-                    }
                     userOrders.Add(order);
                 }
             }
