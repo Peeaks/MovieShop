@@ -57,7 +57,20 @@
                     <li> @Html.ActionLink("Your Profile", "Index", "Manage") </li>
                 }
             </ul>
+
             @Html.Partial("_LoginPartial")
+            
+
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get, htmlAttributes: new { @class = "navbar-form", role = "search"})) {
+                <div class="nav navbar-nav navbar-right">
+                    <div class="input-group">
+                        @Html.TextBox("search", "", new { @class = "form-control", placeholder = "Search" })
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" style="margin-right: 10px" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>

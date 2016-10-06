@@ -7,16 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 using DLL.Entities;
 
-namespace MailModule
-{
-    public class Mailer
-    {
-        public void SendMail(Order order) {
+namespace MailModule {
+    public class Mailer {
+        public void SendReceipt(Order order) {
             var fromAddress = new MailAddress("NoReplyPineappleInc@gmail.com", "Pineapple Inc.");
-            var toAddress = new MailAddress(order.ApplicationUser.Email, $"{order.ApplicationUser.FirstName} {order.ApplicationUser.LastName}");
+            var toAddress = new MailAddress(order.ApplicationUser.Email,
+                $"{order.ApplicationUser.FirstName} {order.ApplicationUser.LastName}");
             const string fromPassword = "Test123$";
             const string subject = "Confirmation mail from Movie Shop";
-            const string body = "Thank you for buying your movies at the Pineapple Inc. movie shop";
+            var body = @"<h1>Thank you very much for shopping at the Pineapple Inc. Movie Shop</h1>
+                        <p>You bought " + order.Movie.Title + " for the cheap price of " + order.Movie.Price + "$</p>";
+
 
             var smtp = new SmtpClient {
                 Host = "smtp.gmail.com",
@@ -26,10 +27,8 @@ namespace MailModule
                 UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
             };
-            using (var message = new MailMessage(fromAddress, toAddress) {
-                Subject = subject,
-                Body = body
-            }) {
+            using (var message = new MailMessage(fromAddress, toAddress) {Subject = subject, Body = body}) {
+                message.IsBodyHtml = true;
                 smtp.Send(message);
             }
         }

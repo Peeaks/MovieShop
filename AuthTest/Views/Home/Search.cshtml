@@ -1,0 +1,52 @@
+﻿@using Microsoft.Ajax.Utilities
+@model AuthTest.Models.HomeSearchViewModel
+@{
+    ViewBag.Title = "Search Page";
+}
+
+@if (!Model.ErrorMessage.IsNullOrWhiteSpace()) {
+    <div class="container" style="padding-top: 30px;">
+        <div class="row">
+            <p>@Model.ErrorMessage</p>
+        </div>
+    </div>
+} else {
+    <div class="container" style="padding-top: 30px;">
+        <div class="row">
+            @foreach (var movie in Model.HomeIndexViewModel.Movies) {
+                <div class="col-lg-3 col-md-4 col-sm-6" style="max-height: 630px">
+                    <div class="thumbnail" style="margin-top: 10px;">
+                        <a href="@Url.Action("Details", new {id = movie.Id})">
+                            <div style="position: relative; overflow: hidden; padding-bottom: 148%">
+                                <img class="img-responsive" src="@movie.ImageUrl" alt="" style="position: absolute; margin: auto">
+                            </div>
+                        </a>
+                        <div class="caption">
+                            <h4 class="pull-right">$@movie.Price</h4>
+                            <h4>
+                                <a href="@Url.Action("Details", new {id = movie.Id})">@movie.Title</a>
+                            </h4>
+                            <a href="@Url.Action("BuyPage", new {id = movie.Id})" class="btn btn-info pull-right">Buy</a>
+                            <p>
+                                @movie.Year
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="text-center">
+                <ul class="pagination">
+                    @for (int i = 1; i < Model.HomeIndexViewModel.MaxPages + 1; i++) {
+                        <li @if (Model.HomeIndexViewModel.CurrentPage == i) {
+                                <text>class="active"</text>
+                            }>
+                            <a href="@Url.Action("Search", new {page = i, search = Model.Search})">@(i)</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}
