@@ -8,6 +8,7 @@ using AuthTest.Models;
 using AuthTest.Views.Home;
 using DLL;
 using DLL.Entities;
+using MailModule;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -104,6 +105,7 @@ namespace AuthTest.Controllers {
         {
 
             _orderManager.Create(order);
+            new Mailer().SendMail(order);
 
             return View("ThankYou");
         }

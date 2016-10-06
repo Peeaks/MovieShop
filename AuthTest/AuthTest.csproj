@@ -300,6 +300,10 @@
       <Project>{3f79ceb1-819f-4318-a051-fd20ef83bc2c}</Project>
       <Name>DLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MailModule\MailModule.csproj">
+      <Project>{46f36332-b90a-431c-9b1c-950bbc9fb042}</Project>
+      <Name>MailModule</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
