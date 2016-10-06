@@ -37,7 +37,12 @@
 
             </dl>
         </div>
-        <div class="row">
+        
+        <div class="row text-center">
+            <a href="@Url.Action("BuyPage", new {id = Model.Id})" class="btn btn-lg btn-info">Buy this movie</a>
+        </div>
+
+        <div class="row" style="margin-top: 30px">
             <div class="col-md-12">
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="@Model.TrailerUrl" allowfullscreen></iframe>
@@ -45,8 +50,10 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" >
-        <img style="max-height: 600px; margin-left: auto; margin-right: auto; margin-top: 20px" class="img-responsive" src="@Model.ImageUrl"/>
+    <div class="col-md-6">
+        <div class="row">
+            <img style="max-height: 600px; margin-left: auto; margin-right: auto; margin-top: 20px" class="img-responsive" src="@Model.ImageUrl"/>
+        </div>
     </div>
 </div>
 

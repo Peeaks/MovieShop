@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -18,7 +20,20 @@ namespace AuthTest {
     public class EmailService : IIdentityMessageService {
         public Task SendAsync(IdentityMessage message) {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+
+            var smtp = new SmtpClient {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("NoReplyPineappleInc@gmail.com", "Test123$")
+            };
+
+            MailMessage messageTest = new MailMessage("NoReplyPineappleInc@gmail.com", message.Destination,
+                message.Subject, message.Body) {IsBodyHtml = true};
+
+            return smtp.SendMailAsync(messageTest);
         }
     }
 

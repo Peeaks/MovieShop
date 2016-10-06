@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AuthTest.Models;
 using AuthTest.Views.Home;
 using DLL;
 using DLL.Entities;
-using MailModule;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -22,6 +22,12 @@ namespace AuthTest.Controllers {
 
         private readonly IManager<ApplicationUser, string> _applicationUserManager =
             new DllFacade().GetApplicationUserManager();
+
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager {
+            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
+            private set { _userManager = value; }
+        }
 
         // GET: Movie
         public ActionResult Index(int? page) {
@@ -151,9 +157,16 @@ namespace AuthTest.Controllers {
 
         [Authorize]
         [HttpPost]
-        public ActionResult Confirm(Order order) {
+        public async Task<ActionResult> Confirm(Order order) {
             _orderManager.Create(order);
-            new MailFacade().SendReceiptMail(order);
+
+            const string subject = "Order receipt from Movie Shop";
+            //var body = @"<h1>Thank you very much for shopping at the Pineapple Inc. Movie Shop</h1>
+            //            <p>You bought " + order.Movie.Title + " for the cheap price of " + order.TotalPrice + "$</p>";
+
+            var body = new EmailTemplate.EmailTemplate().Receipt(order);
+
+            await UserManager.SendEmailAsync(User.Identity.GetUserId(), subject, body);
 
             return View("ThankYou", order);
         }

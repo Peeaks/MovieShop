@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Admin\Admin.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthTest", "AuthTest\AuthTest.csproj", "{C726630C-8693-405B-A98A-608F81726DDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailModule", "MailModule\MailModule.csproj", "{46F36332-B90A-431C-9B1C-950BBC9FB042}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{C726630C-8693-405B-A98A-608F81726DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C726630C-8693-405B-A98A-608F81726DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C726630C-8693-405B-A98A-608F81726DDF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46F36332-B90A-431C-9B1C-950BBC9FB042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46F36332-B90A-431C-9B1C-950BBC9FB042}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46F36332-B90A-431C-9B1C-950BBC9FB042}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46F36332-B90A-431C-9B1C-950BBC9FB042}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
