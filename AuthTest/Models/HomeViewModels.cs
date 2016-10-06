@@ -9,6 +9,7 @@ namespace AuthTest.Models {
         public List<Movie> Movies { get; set; }
         public int MaxPages { get; set; }
         public int CurrentPage { get; set; }
+        public List<Genre> Genres { get; set; }
     }
 
     public class HomeSearchViewModel {

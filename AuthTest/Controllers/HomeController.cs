@@ -17,6 +17,7 @@ namespace AuthTest.Controllers {
     public class HomeController : Controller {
         private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
         private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
+        private readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
         private readonly IManager<PromoCode, int> _promoCodeManager = new DllFacade().GetPromoCodeManager();
 
         private readonly IManager<ApplicationUser, string> _applicationUserManager =
@@ -71,7 +72,7 @@ namespace AuthTest.Controllers {
                     returnMovies.Add(movies[i]);
                 }
             }
-            return new HomeIndexViewModel {Movies = returnMovies, MaxPages = (movies.Count + 9)/12, CurrentPage = page};
+            return new HomeIndexViewModel {Movies = returnMovies, MaxPages = (movies.Count + 9)/12, CurrentPage = page, Genres = _genreManager.Read()};
         }
 
         // GET: Movies/Details/5

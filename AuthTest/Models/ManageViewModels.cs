@@ -9,6 +9,7 @@ namespace AuthTest.Models {
     public class IndexViewModel {
         public ApplicationUser ApplicationUser { get; set; }
         public string Message { get; set; }
+        public List<Order> Orders { get; set; }
     }
 
     public class ChangePasswordViewModel {

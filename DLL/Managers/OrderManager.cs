@@ -25,15 +25,13 @@ namespace DLL.Managers {
 
         public Order Read(int id) {
             using (var db = new MovieShopContext()) {
-                //return db.Orders.Include(x => x.ApplicationUser.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).FirstOrDefault(x => x.Id == id);
-                return null;
+                return db.Orders.Include(x => x.ApplicationUser.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).FirstOrDefault(x => x.Id == id);
             }
         }
 
         public List<Order> Read() {
             using (var db = new MovieShopContext()) {
-                //return db.Orders.Include(x => x.ApplicationUser.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).ToList();
-                return null;
+                return db.Orders.Include(x => x.ApplicationUser.Address).Include(x => x.Movie.Genre).Include(x => x.PromoCode).ToList();
             }
         }
 

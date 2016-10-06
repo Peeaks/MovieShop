@@ -6,7 +6,7 @@
 <div class="container" style="padding-top: 30px;">
     <div class="row">
         @foreach (var movie in Model.Movies) {
-            <div class="col-lg-3 col-md-4 col-sm-6" style="max-height: 630px">
+            <div class="col-lg-3 col-md-4 col-sm-6" style="max-height: 520px">
                 <div class="thumbnail" style="margin-top: 10px;">
                     <a href="@Url.Action("Details", new {id = movie.Id})">
                         <div style="position: relative; overflow: hidden; padding-bottom: 148%">

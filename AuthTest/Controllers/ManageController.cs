@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -17,6 +18,7 @@ namespace AuthTest.Controllers {
         private ApplicationUserManager _userManager;
 
         private readonly IManager<ApplicationUser, string> _applicationUserManager = new DllFacade().GetApplicationUserManager();
+        private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
 
         public ManageController() {
         }
@@ -41,7 +43,19 @@ namespace AuthTest.Controllers {
         public ActionResult Index(string message) {
             var userFound = _applicationUserManager.Read(User.Identity.GetUserId());
 
-            return View(new IndexViewModel {ApplicationUser = userFound, Message = message});
+            //Found orders for a user
+            var allOrders = _orderManager.Read();
+            var userOrders = new List<Order>();
+            foreach (var order in allOrders) {
+                if (order.ApplicationUser.Id == User.Identity.GetUserId()) {
+                    if (order.PromoCode != null) {
+                        order.Movie.Price -= (order.Movie.Price * order.PromoCode.Discount * 0.01);
+                    }
+                    userOrders.Add(order);
+                }
+            }
+
+            return View(new IndexViewModel {ApplicationUser = userFound, Message = message, Orders = userOrders});
         }
 
         //

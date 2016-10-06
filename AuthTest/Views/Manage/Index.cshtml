@@ -89,6 +89,45 @@
             </div>
         </div>
     </div>
+    
+
+    <div class="row">
+        <hr/>
+        <h4>Your previous orders</h4>
+        
+        <table id="example" class="table table-striped table-bordered" style="width: 100%;">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Date</th>
+            </tr>
+            </thead>
+            @*<tfoot>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Age</th>
+                    <th>Start date</th>
+                    <th>Salary</th>
+                </tr>
+            </tfoot>*@
+            <tbody>
+                @foreach (var order in Model.Orders) {
+                    <tr>
+                        <td><img src="@order.Movie.ImageUrl" height="80"/></td>
+                        <td>@order.Movie.Title</td>
+                        <td>@order.Movie.Price</td>
+                        <td>@order.Time</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+
+    </div>
 
 
 </div>
