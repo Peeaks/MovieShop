@@ -10,7 +10,15 @@ namespace DLL.Entities {
         public ApplicationUser ApplicationUser { get; set; }
         public DateTime Time { get; set; }
         public PromoCode PromoCode { get; set; }
-
+        public double SubTotalPrice {
+            get {
+                double price = 0;
+                foreach (var movie in Movies) {
+                    price += movie.Price;
+                }
+                return price;
+            }
+        }
         public double TotalPrice {
             get {
                 double price = 0;
