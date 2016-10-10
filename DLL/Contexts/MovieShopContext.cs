@@ -14,6 +14,8 @@ namespace DLL.Contexts {
             modelBuilder.Entity<Order>().HasMany(a => a.Movies).WithMany();
 
             modelBuilder.Entity<Cart>().HasMany(a => a.Movies).WithMany();
+
+            modelBuilder.Entity<Cart>().HasOptional(x => x.PromoCode);
         }
 
         public DbSet<Genre> Genres { get; set; }

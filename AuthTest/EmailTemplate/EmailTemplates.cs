@@ -117,8 +117,7 @@ namespace AuthTest.EmailTemplate {
                           </td>
                           <td class=""order-number__cell"" style=""color: #999; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; text-align: right; text-transform: uppercase""
                             align=""right""> <span class=""order-number__text"" style=""font-size: 16px"">
-                        Order " + order.Id +
-                      @"</span>
+                        Order " + order.Id + @"</span>
 
                           </td>
                         </tr>
@@ -139,7 +138,9 @@ namespace AuthTest.EmailTemplate {
                     <td style = ""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"" >
                       <h2 style=""font-size: 24px; font-weight: normal; margin: 0 0 10px"">Thank you for your purchase! </h2>
 
-                      <p style = ""color: #777; font-size: 16px; line-height: 150%; margin: 0"" > Hi " + order.ApplicationUser.FirstName + " " + order.ApplicationUser.LastName + @" we're getting your order ready to be shipped. We will notify you when it has been sent.</p>
+                      <p style = ""color: #777; font-size: 16px; line-height: 150%; margin: 0"" > Hi " +
+                   order.ApplicationUser.FirstName + " " + order.ApplicationUser.LastName +
+                   @" we're getting your order ready to be shipped. We will notify you when it has been sent.</p>
                       <table class=""row actions"" style=""border-collapse: collapse; border-spacing: 0; margin-top: 20px; width: 100%"">
                         <tr>
                           <td class=""actions__cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"">
@@ -164,29 +165,26 @@ namespace AuthTest.EmailTemplate {
 
                     </td>
                   </tr>
-                </table>
-                <table class=""container"" style=""border-collapse: collapse; border-spacing: 0; margin: 0 auto; text-align: left; width: 560px"">
-                  <tr>
-                    <td style = ""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"" >
-                      <table class=""row"" style=""border-collapse: collapse; border-spacing: 0; width: 100%"">
-                        <tr class=""order-list__item order-list__item--single"" style=""border-bottom-color: #e5e5e5; border-bottom-style: none !important; border-bottom-width: 1px; width: 100%"">
-                          <td class=""order-list__item__cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding: 0"">
-                            <table style = ""border-collapse: collapse; border-spacing: 0"" >
-                              <td style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"">
-                              </td>
-                              <td class=""order-list__product-description-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; width: 100%""> <span class=""order-list__item-title"" style=""color: #555; font-size: 16px; font-weight: 600; line-height: 1.4"">" + "??????????" + @"</span>
-                                <br>
-                              </td>
-                              <td class=""order-list__price-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; white-space: nowrap"">
-                                <p class=""order-list__item-price"" style=""color: #555; font-size: 16px; font-weight: 600; line-height: 150%; margin: 0 0 0 15px; text-align: right"" align=""right"">$" + order.TotalPrice + @"</p>
-                              </td>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                      <table class=""row subtotal-lines"" style=""border-collapse: collapse; border-spacing: 0; border-top-color: #e5e5e5; border-top-style: solid; border-top-width: 1px; margin-top: 15px; width: 100%"">
+                </table>" + ReceiptHelper(order.Movies) +
+                   @"<table class=""row subtotal-lines"" style=""border-collapse: collapse; border-spacing: 0; border-top-color: #e5e5e5; border-top-style: solid; border-top-width: 1px; margin-top: 15px; width: 100%"">
                         <tr>
                         
+
+                            <table class=""row subtotal-table subtotal-table--total"" style=""border-collapse: collapse; border-spacing: 0; border-top-color: #e5e5e5; border-top-style: solid; border-top-width: 2px; margin-top: 20px; width: 100%"">
+                              <tr class=""subtotal-line"">
+                                <td class=""subtotal-line__title"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding: 20px 0 0"">
+                                  <p style = ""color: #777; font-size: 16px; line-height: 1.2em; margin: 0"" > <span style=""font-size: 16px"">Discount</span>
+
+                                  </p>
+                                </td>
+                                <td class=""subtotal-line__value"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding: 20px 0 0; text-align: right"" align=""right"">
+                                <strong style = ""color: #555; font-size: 24px"" >$" +
+                   ReceiptHelperDiscount(order.PromoCode) + @"</strong>
+
+                                </td>
+                              </tr>
+                            </table>
+
                             <table class=""row subtotal-table subtotal-table--total"" style=""border-collapse: collapse; border-spacing: 0; border-top-color: #e5e5e5; border-top-style: solid; border-top-width: 2px; margin-top: 20px; width: 100%"">
                               <tr class=""subtotal-line"">
                                 <td class=""subtotal-line__title"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding: 20px 0 0"">
@@ -230,9 +228,12 @@ namespace AuthTest.EmailTemplate {
                           <td class=""customer-info__item"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding-bottom: 40px; width: 50%"">
                             <h4 style = ""color: #555; font-size: 16px; font-weight: 500; margin: 0 0 5px"" > Shipping address</h4>
 
-                            <p style = ""color: #777; font-size: 16px; line-height: 150%; margin: 0"" >" + order.ApplicationUser.FirstName + " " + order.ApplicationUser.LastName + @"
-                                  <br>" + order.ApplicationUser.Address.StreetName + " " + order.ApplicationUser.Address.StreetNumber + @"
-                                  <br>" + order.ApplicationUser.Address.ZipCode + " " + order.ApplicationUser.Address.Country + @"
+                            <p style = ""color: #777; font-size: 16px; line-height: 150%; margin: 0"" >" +
+                   order.ApplicationUser.FirstName + " " + order.ApplicationUser.LastName + @"
+                                  <br>" + order.ApplicationUser.Address.StreetName + " " +
+                   order.ApplicationUser.Address.StreetNumber + @"
+                                  <br>" + order.ApplicationUser.Address.ZipCode + " " +
+                   order.ApplicationUser.Address.Country + @"
                           </td>
                         </tr>
                       </table>
@@ -269,7 +270,44 @@ namespace AuthTest.EmailTemplate {
 
 </html>";
         }
+
+
+        private string ReceiptHelper(List<Movie> movies) {
+            string returnPath = "";
+
+            foreach (var movie in movies) {
+                returnPath +=
+                    @"<table class=""container"" style=""border-collapse: collapse; border-spacing: 0; margin: 0 auto; text-align: left; width: 560px"">
+                  <tr>
+                    <td style = ""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"" >
+                      <table class=""row"" style=""border-collapse: collapse; border-spacing: 0; width: 100%"">
+                        <tr class=""order-list__item order-list__item--single"" style=""border-bottom-color: #e5e5e5; border-bottom-style: none !important; border-bottom-width: 1px; width: 100%"">
+                          <td class=""order-list__item__cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; padding: 0"">
+                            <table style = ""border-collapse: collapse; border-spacing: 0"" >
+                              <td style = ""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"">
+                              </td>
+                              <td class=""order-list__product-description-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; width: 100%""> <span class=""order-list__item-title"" style=""color: #555; font-size: 16px; font-weight: 600; line-height: 1.4"">" +
+                    movie.Title + @"</span>
+                                <br>
+                              </td>
+                              <td class=""order-list__price-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; white-space: nowrap"">
+                                <p class=""order-list__item-price"" style=""color: #555; font-size: 16px; font-weight: 600; line-height: 150%; margin: 0 0 0 15px; text-align: right"" align=""right"">$" +
+                    movie.Price + @"</p>
+                              </td>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>";
+            }
+            return returnPath;
+        }
+
+        private string ReceiptHelperDiscount(PromoCode promo) {
+            if (promo != null) {
+                return promo.Discount + "%";
+            } else {
+                return "0%";
+            }
+        }
     }
 }
-
-
