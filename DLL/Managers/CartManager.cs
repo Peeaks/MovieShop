@@ -35,7 +35,7 @@ namespace DLL.Managers {
             using (var db = new MovieShopContext()) {
                 var promoFound = db.PromoCodes.FirstOrDefault(x => x.Code == promo);
                 if (promoFound != null) {
-                    var cart = GetCart();
+                    var cart = db.Carts.Include(x => x.Movies).Include(x => x.PromoCode).FirstOrDefault(x => x.Id == ShoppingCartId);
                     cart.PromoCode = promoFound;
                     db.SaveChanges();
                 }
