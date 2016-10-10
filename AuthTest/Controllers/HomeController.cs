@@ -19,7 +19,7 @@ namespace AuthTest.Controllers {
         private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
         private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
         private readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
-        private readonly IManager<PromoCode, int> _promoCodeManager = new DllFacade().GetPromoCodeManager();
+        private readonly IManager<PromoCode, string> _promoCodeManager = new DllFacade().GetPromoCodeManager();
 
         private readonly IManager<ApplicationUser, string> _applicationUserManager =
             new DllFacade().GetApplicationUserManager();
