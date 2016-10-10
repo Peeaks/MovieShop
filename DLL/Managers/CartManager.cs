@@ -80,6 +80,7 @@ namespace DLL.Managers {
             using (var db = new MovieShopContext()) {
                 var cart = db.Carts.Single(x => x.Id == ShoppingCartId);
                 cart.Movies.Clear();
+                cart.PromoCode = null;
                 // Save changes
                 db.SaveChanges();
             }
