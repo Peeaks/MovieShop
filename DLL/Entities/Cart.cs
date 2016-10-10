@@ -10,6 +10,16 @@ namespace DLL.Entities {
         public string Id { get; set; }
         public virtual List<Movie> Movies { get; set; }
         public PromoCode PromoCode { get; set; }
+
+        public double SubTotalPrice {
+            get {
+                double price = 0;
+                foreach (var movie in Movies) {
+                    price += movie.Price;
+                }
+                return price;
+            }
+        }
         public double TotalPrice {
             get {
                 double price = 0;
@@ -28,3 +38,4 @@ namespace DLL.Entities {
         }
     }
 }
+
