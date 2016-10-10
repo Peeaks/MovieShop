@@ -133,7 +133,10 @@ namespace AuthTest.Controllers {
 
         [Authorize]
         public async Task<ActionResult> Confirm(Order order) {
+            var _cartManager = CartManager.GetCartManager(this.HttpContext);
+
             _orderManager.Create(order);
+            _cartManager.EmptyCart();
 
             const string subject = "Order receipt from Movie Shop";
             var body = new EmailTemplate.EmailTemplate().Receipt(order);
