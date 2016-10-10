@@ -18,7 +18,7 @@
                         <h4>
                             <a href="@Url.Action("Details", new {id = movie.Id})">@movie.Title</a>
                         </h4>
-                        <a href="@Url.Action("BuyPage", new {id = movie.Id})" class="btn btn-info pull-right">Buy</a>
+                        <a href="@Url.Action("AddToCart", "Cart", new {id = movie.Id})" class="btn btn-info pull-right">Add to cart</a>
                         <p>
                             @movie.Year
                         </p>

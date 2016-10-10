@@ -9,6 +9,7 @@ using AuthTest.Models;
 using AuthTest.Views.Home;
 using DLL;
 using DLL.Entities;
+using DLL.Managers;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -24,6 +25,7 @@ namespace AuthTest.Controllers {
             new DllFacade().GetApplicationUserManager();
 
         private ApplicationUserManager _userManager;
+
         public ApplicationUserManager UserManager {
             get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
             private set { _userManager = value; }
@@ -41,7 +43,6 @@ namespace AuthTest.Controllers {
         }
 
         public ActionResult Search(int? page, string search) {
-
             if (search.IsNullOrWhiteSpace()) {
                 return RedirectToAction("Index");
             }
@@ -64,7 +65,8 @@ namespace AuthTest.Controllers {
                 return View(new HomeSearchViewModel {Search = search, ErrorMessage = "No results were found"});
             }
 
-            return View(new HomeSearchViewModel {HomeIndexViewModel = GetPage(returnMovies, page.Value), Search = search});
+            return
+                View(new HomeSearchViewModel {HomeIndexViewModel = GetPage(returnMovies, page.Value), Search = search});
         }
 
         private HomeIndexViewModel GetPage(List<Movie> movies, int page) {
@@ -78,7 +80,12 @@ namespace AuthTest.Controllers {
                     returnMovies.Add(movies[i]);
                 }
             }
-            return new HomeIndexViewModel {Movies = returnMovies, MaxPages = (movies.Count + 9)/12, CurrentPage = page, Genres = _genreManager.Read()};
+            return new HomeIndexViewModel {
+                Movies = returnMovies,
+                MaxPages = (movies.Count + 9)/12,
+                CurrentPage = page,
+                Genres = _genreManager.Read()
+            };
         }
 
         // GET: Movies/Details/5
@@ -93,77 +100,42 @@ namespace AuthTest.Controllers {
             return View(movie);
         }
 
-
         [Authorize]
-        public ActionResult BuyPage(int? id) {
-            if (id == null) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Movie movie = _movieManager.Read(id.Value);
-            if (movie == null) {
-                return HttpNotFound();
-            }
+        public ActionResult BuyPage() {
+            Cart cart = CartManager.GetCartManager(this.HttpContext).GetCart();
 
-            ApplicationUser user = _applicationUserManager.Read(User.Identity.GetUserId());
-
-            var buyPageViewModel = new BuyPageViewModel {ApplicationUser = user, Movie = movie, ErrorString = ""};
-
-            return View(buyPageViewModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public ActionResult BuyPage(
-            [Bind(Include = "Id, FirstName, LastName, Email, Address")] ApplicationUser applicationUser,
-            [Bind(Include = "Id, Title, Genre, ImageUrl, TrailerUrl, Year, Price")] Movie movie,
-            [Bind(Include = "Code")] PromoCode promoCode) {
             if (ModelState.IsValid) {
                 Order order;
 
                 var allPromoCodes = _promoCodeManager.Read();
-                if (promoCode.Code.IsNullOrWhiteSpace()) {
-                    order = new Order {ApplicationUser = applicationUser, Movie = movie, /*TotalPrice = movie.Price*/};
+                if (cart.PromoCode == null) {
+                    order = new Order {
+                        ApplicationUser = _applicationUserManager.Read(User.Identity.GetUserId()),
+                        Movies = cart.Movies
+                    };
                 } else {
-                    var promoFound = allPromoCodes.FirstOrDefault(x => x.Code == promoCode.Code);
+                    var promoFound = allPromoCodes.FirstOrDefault(x => x.Code == cart.PromoCode.Code);
                     if (promoFound != null && !promoFound.IsValid) {
-                        return
-                            View(new BuyPageViewModel {
-                                Movie = movie,
-                                ApplicationUser = applicationUser,
-                                PromoCode = promoCode,
-                                ErrorString = "The promo code is invalid"
-                            });
+                        return View(new BuyPageViewModel {Cart = cart, ErrorString = "The promo code is invalid"});
                     } else if (promoFound == null) {
-                        return
-                            View(new BuyPageViewModel {
-                                Movie = movie,
-                                ApplicationUser = applicationUser,
-                                PromoCode = promoCode,
-                                ErrorString = "The promo code does not exist"
-                            });
+                        return View(new BuyPageViewModel {Cart = cart, ErrorString = "The promo code does not exist"});
                     }
-                    order = new Order {ApplicationUser = applicationUser, Movie = movie, PromoCode = promoFound, /*TotalPrice = movie.Price*/};
-                }
-
-                //_orderManager.Create(order);
-                if (order.PromoCode != null) {
-                    //double discount = order.Movie.Price*order.PromoCode.Discount*0.01;
-                    //order.TotalPrice = order.Movie.Price - discount;
+                    order = new Order {
+                        ApplicationUser = _applicationUserManager.Read(User.Identity.GetUserId()),
+                        Movies = cart.Movies,
+                        PromoCode = promoFound
+                    };
                 }
                 return View("Confirm", order);
             }
-            return View(new BuyPageViewModel {Movie = movie, ApplicationUser = applicationUser, ErrorString = ""});
+            return View(new BuyPageViewModel {Cart = cart});
         }
 
         [Authorize]
-        [HttpPost]
         public async Task<ActionResult> Confirm(Order order) {
             _orderManager.Create(order);
 
             const string subject = "Order receipt from Movie Shop";
-            //var body = @"<h1>Thank you very much for shopping at the Pineapple Inc. Movie Shop</h1>
-            //            <p>You bought " + order.Movie.Title + " for the cheap price of " + order.TotalPrice + "$</p>";
-
             var body = new EmailTemplate.EmailTemplate().Receipt(order);
 
             await UserManager.SendEmailAsync(User.Identity.GetUserId(), subject, body);

@@ -1,4 +1,5 @@
-﻿@using Microsoft.Ajax.Utilities
+﻿@using System.Activities.Statements
+@using Microsoft.Ajax.Utilities
 @model DLL.Entities.Order
 @{
     ViewBag.Title = "Confirm";
@@ -14,14 +15,17 @@
 
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new {@class = "text-danger"})
-                @Html.HiddenFor(model => model.Movie.Genre.Name)
-                @Html.HiddenFor(model => model.Movie.Genre.Id)
-                @Html.HiddenFor(model => model.Movie.ImageUrl)
-                @Html.HiddenFor(model => model.Movie.Price)
-                @Html.HiddenFor(model => model.Movie.Title)
-                @Html.HiddenFor(model => model.Movie.TrailerUrl)
-                @Html.HiddenFor(model => model.Movie.Year)
-                @Html.HiddenFor(model => model.Movie.Id)
+
+                @for (int i = 0; i < Model.Movies.Count; i++) {
+                    @Html.HiddenFor(model => Model.Movies[i].Genre)
+                    @Html.HiddenFor(model => Model.Movies[i].ImageUrl)
+                    @Html.HiddenFor(model => Model.Movies[i].Price)
+                    @Html.HiddenFor(model => Model.Movies[i].Title)
+                    @Html.HiddenFor(model => Model.Movies[i].TrailerUrl)
+                    @Html.HiddenFor(model => Model.Movies[i].Year)
+                    @Html.HiddenFor(model => Model.Movies[i].Id)
+                }
+
 
                 @Html.HiddenFor(model => model.ApplicationUser.Id)
                 @Html.HiddenFor(model => model.ApplicationUser.FirstName)
@@ -30,17 +34,6 @@
                 @Html.HiddenFor(model => model.ApplicationUser.Address.StreetNumber)
                 @Html.HiddenFor(model => model.ApplicationUser.Address.ZipCode)
                 @Html.HiddenFor(model => model.ApplicationUser.Address.StreetName)
-                
-                @Html.HiddenFor(model => model.TotalPrice);
-
-                <h4>Movie</h4>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Movie.Title, new {@class = "control-label col-md-2"})
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Movie.Title, new {@readonly = "readonly", @class = "form-control"})
-                    </div>
-                </div>
 
                 <h4>Personal info</h4>
 
@@ -116,7 +109,7 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Buy @(Model.TotalPrice) $" class="btn btn-default"/>
+                        <input type="submit" value="Buy" class="btn btn-default"/>
                     </div>
                 </div>
             </div>
@@ -124,6 +117,15 @@
     </div>
 
     <div class="col-md-5">
-        <img class="img-responsive" src="@Model.Movie.ImageUrl" alt="">
+        @foreach (var movie in Model.Movies) {
+            <p>@movie.Title         @movie.Price</p>
+        }
+        <hr/>
+        @if (@Model.PromoCode != null) {
+            <p>Discount: @Model.PromoCode.Discount%</p>
+        } else {
+            <p>Discount: 0%</p>
+        }
+        <p>Total price: @Model.TotalPrice$</p>
     </div>
 </div>

@@ -39,7 +39,7 @@
         </div>
         
         <div class="row text-center">
-            <a href="@Url.Action("BuyPage", new {id = Model.Id})" class="btn btn-lg btn-info">Buy this movie</a>
+            <a href="@Url.Action("AddToCart", "Cart", new {id = Model.Id})" class="btn btn-lg btn-info">Add to cart</a>
         </div>
 
         <div class="row" style="margin-top: 30px">

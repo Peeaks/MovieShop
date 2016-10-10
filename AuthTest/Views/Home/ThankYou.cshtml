@@ -38,22 +38,35 @@
                     <tr>
                         <th>Product</th>
                         <th></th>
-                        <th>Discount</th>
                         <th class="text-center">Price</th>
                     </tr>
                     </thead>
                     <tbody>
+
+                    @foreach (var movie in Model.Movies) {
+                        <tr>
+                            <td class="col-md-9">
+                                <em>@movie.Title</em>
+                            </td>
+                            <td></td>
+                            <td class="col-md-1 text-center">@movie.Price</td>
+                        </tr>
+                    }
                     <tr>
-                        <td class="col-md-9">
-                            <em>@Model.Movie.Title</em>
+                        <td> </td>
+                        <td> </td>
+                        <td class="text-right">
+                            <h4>
+                                <strong>Discount: </strong>
+                            </h4>
                         </td>
-                        <td></td>
-                        @if (Model.PromoCode != null) {
-                            <td>@Model.PromoCode.Discount%</td>
-                        } else {
-                            <td>0%</td>
-                        }
-                        <td class="col-md-1 text-center">@Model.TotalPrice</td>
+                        <td class="text-center text-danger">
+                            @if (Model.PromoCode != null) {
+                                <h4>@Model.PromoCode.Discount%</h4>
+                            } else {
+                                <h4>0%</h4>
+                            }
+                        </td>
                     </tr>
                     <tr>
                         <td> </td>
@@ -64,7 +77,7 @@
                             </h4>
                         </td>
                         <td class="text-center text-danger">
-                            <h4>@Model.TotalPrice</h4>
+                            <h4>@Model.TotalPrice$</h4>
                         </td>
                     </tr>
                     </tbody>

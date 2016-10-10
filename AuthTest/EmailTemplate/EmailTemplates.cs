@@ -174,7 +174,7 @@ namespace AuthTest.EmailTemplate {
                             <table style = ""border-collapse: collapse; border-spacing: 0"" >
                               <td style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"">
                               </td>
-                              <td class=""order-list__product-description-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; width: 100%""> <span class=""order-list__item-title"" style=""color: #555; font-size: 16px; font-weight: 600; line-height: 1.4"">" + order.Movie.Title + @"</span>
+                              <td class=""order-list__product-description-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; width: 100%""> <span class=""order-list__item-title"" style=""color: #555; font-size: 16px; font-weight: 600; line-height: 1.4"">" + "??????????" + @"</span>
                                 <br>
                               </td>
                               <td class=""order-list__price-cell"" style=""font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; white-space: nowrap"">

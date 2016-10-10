@@ -1,0 +1,46 @@
+﻿@model DLL.Entities.Cart
+@{
+    ViewBag.Title = "Shopping Cart";
+}
+
+<h3>
+    <em>Review</em> your cart:
+</h3>
+<a href="@Url.Action("BuyPage", "Home")" class="btn btn-info">Checkout >></a>
+
+<div id="update-message">
+</div>
+<table>
+    <tr>
+        <th>
+            Movie name
+        </th>
+        <th>
+            Price
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Movies) {
+        <tr id="row-@item.Id">
+            <td>
+                @Html.ActionLink(item.Title, "Details", "Home", new { id = item.Id }, null)
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                @Html.ActionLink("Remove from cart", "RemoveFromCart", "Cart", new {id = item.Id}, null)
+            </td>
+        </tr>
+    }
+    <tr>
+        <td>
+            Total
+        </td>
+        <td></td>
+        <td></td>
+        <td id="cart-total">
+            @Model.TotalPrice
+        </td>
+    </tr>
+</table>

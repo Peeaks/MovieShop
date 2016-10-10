@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DLL.Entities {
-    public class Order : AbstractEntity {
+    public class Cart {
+        public string Id { get; set; }
         public virtual List<Movie> Movies { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-        public DateTime Time { get; set; }
         public PromoCode PromoCode { get; set; }
-
         public double TotalPrice {
             get {
                 double price = 0;
-                if (this.PromoCode != null && this.PromoCode.Code != null) {
+                if (this.PromoCode != null) {
                     foreach (var movie in Movies) {
-                        double discount = movie.Price*this.PromoCode.Discount*0.01;
+                        double discount = movie.Price * this.PromoCode.Discount * 0.01;
                         price += movie.Price - discount;
                     }
                 } else {

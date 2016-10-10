@@ -23,7 +23,7 @@ namespace DLL {
 
         public List<Movie> Read() {
             using (var db = new MovieShopContext()) {
-                return db.Movies.Include(b => b.Genre).ToList();
+                return db.Movies.Include(x => x.Genre).ToList();
             }
         }
 
