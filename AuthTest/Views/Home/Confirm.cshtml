@@ -97,16 +97,6 @@
                     </div>
                 </div>
 
-                @if (Model.PromoCode != null) {
-                    <div class="form-group">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-10">
-                            <p>You are getting a @Model.PromoCode.Discount% discount</p>
-                        </div>
-
-                    </div>
-                }
-
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Buy" class="btn btn-default"/>
@@ -117,15 +107,38 @@
     </div>
 
     <div class="col-md-5">
-        @foreach (var movie in Model.Movies) {
-            <p>@movie.Title         @movie.Price</p>
-        }
-        <hr/>
-        @if (@Model.PromoCode != null) {
-            <p>Discount: @Model.PromoCode.Discount%</p>
-        } else {
-            <p>Discount: 0%</p>
-        }
-        <p>Total price: @Model.TotalPrice$</p>
-    </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Movie</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var movie in Model.Movies) {
+                <tr>
+                    <td>@movie.Title</td>
+                    <td>@movie.Price$</td>
+                </tr>
+            }
+            @if (@Model.PromoCode != null) {
+                <tr>
+                    <td>Discount:</td> 
+                    <td>@Model.PromoCode.Discount%</td>
+                </tr>
+            } else {
+                <tr>
+                    <td>Discount:</td>
+                    <td>0%</td>
+                </tr>
+            }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><strong>Total price:</strong></td>
+                    <td><strong>@Model.TotalPrice$</strong></td>
+                </tr>
+            </tfoot>
+            </table>
+</div>
 </div>

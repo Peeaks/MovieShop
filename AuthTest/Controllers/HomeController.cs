@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AuthTest.Models;
-using AuthTest.Views.Home;
 using DLL;
 using DLL.Entities;
 using DLL.Managers;
@@ -120,7 +119,7 @@ namespace AuthTest.Controllers {
                 }
                 return View("Confirm", order);
             }
-            return View(new BuyPageViewModel {Cart = cart});
+            return RedirectToAction("Index", "Cart");
         }
 
         [Authorize]
