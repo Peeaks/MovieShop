@@ -10,6 +10,7 @@ using DLL.Managers;
 namespace AuthTest.Controllers {
     public class CartController : Controller {
         private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
+        private readonly IManager<PromoCode, string> _promoManager = new DllFacade().GetPromoCodeManager();
 
         // GET: /ShoppingCart/
         public ActionResult Index() {
@@ -18,6 +19,15 @@ namespace AuthTest.Controllers {
             // Return the view
             return View(cart.GetCart());
         }
+
+        public ActionResult AddPromoCode(string promocode) {
+
+            var cartManager = CartManager.GetCartManager(this.HttpContext);
+            cartManager.AddPromoToCart(promocode);
+
+            return RedirectToAction("Index");
+        }
+
 
         //
         // GET: /Store/AddToCart/5
@@ -49,7 +59,7 @@ namespace AuthTest.Controllers {
 
             // Display the confirmation message
             var message = movieName + " has been removed from your shopping cart.";
-            return View("Index", cart.GetCart());
+            return RedirectToAction("Index");
         }
 
         //

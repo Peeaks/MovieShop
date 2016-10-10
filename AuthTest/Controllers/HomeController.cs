@@ -107,23 +107,15 @@ namespace AuthTest.Controllers {
             if (ModelState.IsValid) {
                 Order order;
 
-                var allPromoCodes = _promoCodeManager.Read();
                 if (cart.PromoCode == null) {
                     order = new Order {
                         ApplicationUser = _applicationUserManager.Read(User.Identity.GetUserId()),
                         Movies = cart.Movies
                     };
                 } else {
-                    var promoFound = allPromoCodes.FirstOrDefault(x => x.Code == cart.PromoCode.Code);
-                    if (promoFound != null && !promoFound.IsValid) {
-                        return View(new BuyPageViewModel {Cart = cart, ErrorString = "The promo code is invalid"});
-                    } else if (promoFound == null) {
-                        return View(new BuyPageViewModel {Cart = cart, ErrorString = "The promo code does not exist"});
-                    }
                     order = new Order {
                         ApplicationUser = _applicationUserManager.Read(User.Identity.GetUserId()),
-                        Movies = cart.Movies,
-                        PromoCode = promoFound
+                        Movies = cart.Movies, PromoCode = cart.PromoCode
                     };
                 }
                 return View("Confirm", order);
@@ -133,10 +125,11 @@ namespace AuthTest.Controllers {
 
         [Authorize]
         public async Task<ActionResult> Confirm(Order order) {
-            var _cartManager = CartManager.GetCartManager(this.HttpContext);
+            var cartManager = CartManager.GetCartManager(this.HttpContext);
+            cartManager.EmptyCart();
+
 
             _orderManager.Create(order);
-            _cartManager.EmptyCart();
 
             const string subject = "Order receipt from Movie Shop";
             var body = new EmailTemplate.EmailTemplate().Receipt(order);

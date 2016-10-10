@@ -31,6 +31,16 @@ namespace DLL.Managers {
             }
         }
 
+        public void AddPromoToCart(string promo) {
+            using (var db = new MovieShopContext()) {
+                var promoFound = db.PromoCodes.FirstOrDefault(x => x.Code == promo);
+                if (promoFound != null) {
+                    GetCart().PromoCode = promoFound;
+                    db.SaveChanges();
+                }
+            }
+        }
+
         public void AddToCart(Movie movie) {
             using (var db = new MovieShopContext()) {
 
@@ -68,7 +78,7 @@ namespace DLL.Managers {
         public void EmptyCart() {
             using (var db = new MovieShopContext()) {
                 var cart = db.Carts.Single(x => x.Id == ShoppingCartId);
-                cart.Movies = new List<Movie>();
+                cart.Movies.Clear();
                 // Save changes
                 db.SaveChanges();
             }
