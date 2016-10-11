@@ -14,10 +14,13 @@ namespace AuthTest.Controllers {
 
         // GET: /ShoppingCart/
         public ActionResult Index() {
-            var cart = CartManager.GetCartManager(this.HttpContext);
-
+            var cartManager = CartManager.GetCartManager(this.HttpContext);
+            var cart = cartManager.GetCart();
+            if (cart == null) {
+                cart = new Cart {Movies = new List<Movie>(), PromoCode = new PromoCode()};
+            }
             // Return the view
-            return View(cart.GetCart());
+            return View(cart);
         }
 
         public ActionResult AddPromoCode(string promocode) {

@@ -13,32 +13,39 @@
         <div class="col-sm-12 col-md-10 col-md-offset-1">
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th></th>
-                        <th class="text-center"></th>
-                        <th class="text-center">Price</th>
-                        <th> </th>
-                    </tr>
+                <tr>
+                    <th>Product</th>
+                    <th></th>
+                    <th class="text-center"></th>
+                    <th class="text-center">Price</th>
+                    <th> </th>
+                </tr>
                 </thead>
                 <tbody>
-                @foreach (var movie in Model.Movies)
-                {
+                @foreach (var movie in Model.Movies) {
                     <tr>
                         <td class="col-sm-8 col-md-6">
                             <div class="media">
-                                <a class="thumbnail pull-left" href="#"> <img class="media-object" src=@movie.ImageUrl style="width: 72px; height: 72px;"> </a>
+                                <a class="thumbnail pull-left" href="#">
+                                    <img class="media-object" src=@movie.ImageUrl style="width: 72px; height: 72px;">
+                                </a>
                                 <div class="media-body">
-                                    <h4 class="media-heading"><a href="#">@movie.Title</a></h4>
-                                    
+                                    <h4 class="media-heading">
+                                        <a href="#">@movie.Title</a>
+                                    </h4>
+
                                     <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
                                 </div>
                             </div>
                         </td>
                         <td>
                         </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong></strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>@movie.Price$</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center">
+                            <strong></strong>
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center">
+                            <strong>@movie.Price$</strong>
+                        </td>
                         <td class="col-sm-1 col-md-1">
                             <a href="@Url.Action("RemoveFromCart", new {id = movie.Id})" class="btn btn-danger">
                                 <span class="glyphicon glyphicon-remove"></span> Remove
@@ -50,14 +57,18 @@
                     <td> </td>
                     <td> </td>
                     <td> </td>
-                    <td><h5>Subtotal</h5></td>
-                    <td class="text-right"><h5><strong>@Model.SubTotalPrice$</strong></h5></td>
-                 </tr>
+                    <td>
+                        <h5>Subtotal</h5>
+                    </td>
+                    <td class="text-right">
+                        <h5>
+                            <strong>@Model.SubTotalPrice$</strong>
+                        </h5>
+                    </td>
+                </tr>
                 <tr>
                     <td>
-                        @using (Html.BeginForm("AddPromoCode", "Cart", FormMethod.Get, htmlAttributes: new {
-                            @class = "form-inline"
-                        })) {
+                        @using (Html.BeginForm("AddPromoCode", "Cart", FormMethod.Get, htmlAttributes: new {@class = "form-inline"})) {
                             <div class="input-group">
                                 @Html.TextBox("promocode", "", new {@class = "form-control", placeholder = "Enter Promo code"})
                                 <div class="input-group-btn">
@@ -66,17 +77,22 @@
                                     </button>
                                 </div>
                             </div>
-
                         }
                     </td>
                     <td> </td>
                     <td> </td>
-                    <td><h5>Discount</h5></td>
+                    <td>
+                        <h5>Discount</h5>
+                    </td>
                     <td class="text-right">
                         @if (Model.PromoCode != null) {
-                            <h5><strong>@Model.PromoCode.Discount%</strong></h5>
+                            <h5>
+                                <strong>@Model.PromoCode.Discount%</strong>
+                            </h5>
                         } else {
-                            <h5><strong>0%</strong></h5>
+                            <h5>
+                                <strong>0%</strong>
+                            </h5>
                         }
                     </td>
                 </tr>
@@ -85,10 +101,13 @@
                     <td> </td>
                     <td> </td>
                     <td>
-                        <h3>Total</h3></td>
+                        <h3>Total</h3>
+                    </td>
                     <td class="text-right">
-                        <h3><strong>@Model.TotalPrice$</strong>
-                        </h3></td>
+                        <h3>
+                            <strong>@Model.TotalPrice$</strong>
+                        </h3>
+                    </td>
                 </tr>
                 <tr>
                     <td> </td>
