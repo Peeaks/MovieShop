@@ -72,6 +72,7 @@
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="IManager.cs" />
+    <Compile Include="ICartManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Managers\CartManager.cs" />
     <Compile Include="Managers\GenreManager.cs" />

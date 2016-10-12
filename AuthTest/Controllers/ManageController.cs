@@ -17,8 +17,8 @@ namespace AuthTest.Controllers {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        private readonly IManager<ApplicationUser, string> _applicationUserManager = new DllFacade().GetApplicationUserManager();
-        private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
+        private IManager<ApplicationUser, string> ApplicationUserManager => new DllFacade().GetApplicationUserManager();
+        private IManager<Order, int> OrderManager => new DllFacade().GetOrderManager();
 
         public ManageController() {
         }
@@ -41,10 +41,10 @@ namespace AuthTest.Controllers {
         //
         // GET: /Manage/Index
         public ActionResult Index(string message) {
-            var userFound = _applicationUserManager.Read(User.Identity.GetUserId());
+            var userFound = ApplicationUserManager.Read(User.Identity.GetUserId());
 
             //Found orders for a user
-            var allOrders = _orderManager.Read();
+            var allOrders = OrderManager.Read();
             var userOrders = new List<Order>();
             foreach (var order in allOrders) {
                 if (order.ApplicationUser.Id == User.Identity.GetUserId()) {
@@ -83,7 +83,7 @@ namespace AuthTest.Controllers {
         }
 
         public ActionResult ChangeName() {
-            var userFound = _applicationUserManager.Read(User.Identity.GetUserId());
+            var userFound = ApplicationUserManager.Read(User.Identity.GetUserId());
 
             return View(new ChangeNameViewModel {FirstName = userFound.FirstName, LastName = userFound.LastName});
         }
@@ -94,16 +94,16 @@ namespace AuthTest.Controllers {
             if (!ModelState.IsValid) {
                 return View(model);
             }
-            var userFound = _applicationUserManager.Read(User.Identity.GetUserId());
+            var userFound = ApplicationUserManager.Read(User.Identity.GetUserId());
             userFound.FirstName = model.FirstName;
             userFound.LastName = model.LastName;
-            _applicationUserManager.Update(userFound);
+            ApplicationUserManager.Update(userFound);
 
             return RedirectToAction("Index", new {Message = "Succesfully changed name"});
         }
 
         public ActionResult ChangeAddress() {
-            var userFound = _applicationUserManager.Read(User.Identity.GetUserId());
+            var userFound = ApplicationUserManager.Read(User.Identity.GetUserId());
 
             return View(userFound.Address);
         }
@@ -114,9 +114,9 @@ namespace AuthTest.Controllers {
             if (!ModelState.IsValid) {
                 return View(address);
             }
-            var userFound = _applicationUserManager.Read(User.Identity.GetUserId());
+            var userFound = ApplicationUserManager.Read(User.Identity.GetUserId());
             userFound.Address = address;
-            _applicationUserManager.Update(userFound);
+            ApplicationUserManager.Update(userFound);
 
             return RedirectToAction("Index", new { Message = "Succesfully changed address" });
         }

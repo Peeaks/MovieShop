@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using DLL.Entities;
 using DLL.Managers;
 
@@ -22,6 +23,10 @@ namespace DLL {
         }
         public IManager<ApplicationUser, string> GetApplicationUserManager() {
             return new ApplicationUserManager();
+        }
+
+        public ICartManager GetCartManager(HttpContextBase httpContext) {
+            return new CartManager(httpContext);
         }
     }
 }

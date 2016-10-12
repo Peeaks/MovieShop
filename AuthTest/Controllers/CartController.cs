@@ -9,12 +9,12 @@ using DLL.Managers;
 
 namespace AuthTest.Controllers {
     public class CartController : Controller {
-        private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
-        private readonly IManager<PromoCode, int> _promoManager = new DllFacade().GetPromoCodeManager();
+        private IManager<Movie, int> MovieManager => new DllFacade().GetMovieManager();
+        private ICartManager CartManager => new DllFacade().GetCartManager(this.HttpContext);
+
 
         public ActionResult Index() {
-            var cartManager = CartManager.GetCartManager(this.HttpContext);
-            var cart = cartManager.GetCart();
+            var cart = CartManager.Read();
             if (cart == null) {
                 cart = new Cart {Movies = new List<Movie>(), PromoCode = new PromoCode()};
             }
@@ -23,39 +23,26 @@ namespace AuthTest.Controllers {
 
         [ValidateAntiForgeryToken]
         public ActionResult AddPromoCode(string promocode) {
-
-            var cartManager = CartManager.GetCartManager(this.HttpContext);
-            cartManager.AddPromoToCart(promocode);
+            CartManager.AddPromoToCart(promocode);
 
             return RedirectToAction("Index");
         }
 
 
         public ActionResult AddToCart(int id) {
-            // Retrieve the movie from the database
-            var movie = _movieManager.Read(id);
+            var movie = MovieManager.Read(id);
 
-            // Add it to the shopping cart
-            var cart = CartManager.GetCartManager(this.HttpContext);
+            CartManager.AddToCart(movie);
 
-            cart.AddToCart(movie);
-
-            // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
 
         [Authorize]
         public ActionResult RemoveFromCart(int id) {
-            // Remove the item from the cart
-            var cart = CartManager.GetCartManager(this.HttpContext);
+            string movieName = MovieManager.Read(id).Title;
 
-            // Get the name of the movie to display confirmation
-            string movieName = _movieManager.Read(id).Title;
+            CartManager.RemoveFromCart(id);
 
-            // Remove from cart
-            cart.RemoveFromCart(id);
-
-            // Display the confirmation message
             var message = movieName + " has been removed from your shopping cart.";
             return RedirectToAction("Index");
         }

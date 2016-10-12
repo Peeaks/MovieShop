@@ -9,11 +9,11 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class GenreController : Controller {
-        private readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
+        private IManager<Genre, int> GenreManager => new DllFacade().GetGenreManager();
 
         // GET: Genres
         public ActionResult Index() {
-            return View(_genreManager.Read());
+            return View(GenreManager.Read());
         }
 
         // GET: Genres/Create
@@ -28,7 +28,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name")] Genre genre) {
             if (ModelState.IsValid) {
-                _genreManager.Create(genre);
+                GenreManager.Create(genre);
                 return RedirectToAction("Index");
             }
 
@@ -40,7 +40,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = _genreManager.Read(id.Value);
+            Genre genre = GenreManager.Read(id.Value);
             if (genre == null) {
                 return HttpNotFound();
             }
@@ -54,7 +54,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name")] Genre genre) {
             if (ModelState.IsValid) {
-                _genreManager.Update(genre);
+                GenreManager.Update(genre);
                 return RedirectToAction("Index");
             }
             return View(genre);
@@ -65,7 +65,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Genre genre = _genreManager.Read(id.Value);
+            Genre genre = GenreManager.Read(id.Value);
             if (genre == null) {
                 return HttpNotFound();
             }
@@ -76,7 +76,7 @@ namespace Admin.Controllers {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            _genreManager.Delete(id);
+            GenreManager.Delete(id);
             return RedirectToAction("Index");
         }
     }

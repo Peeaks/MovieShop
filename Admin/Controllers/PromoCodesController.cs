@@ -15,11 +15,11 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class PromoCodesController : Controller {
-        private readonly IManager<PromoCode, int> _promoCodeManager = new DllFacade().GetPromoCodeManager();
+        private IManager<PromoCode, int> PromoManager => new DllFacade().GetPromoCodeManager();
 
         // GET: PromoCodes
         public ActionResult Index() {
-            return View(_promoCodeManager.Read());
+            return View(PromoManager.Read());
         }
 
         // GET: PromoCodes/Create
@@ -34,7 +34,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Code,Discount, IsValid")] PromoCode promoCode) {
             if (ModelState.IsValid) {
-                _promoCodeManager.Create(promoCode);
+                PromoManager.Create(promoCode);
                 return RedirectToAction("Index");
             }
 
@@ -46,7 +46,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PromoCode promoCode = _promoCodeManager.Read(id.Value);
+            PromoCode promoCode = PromoManager.Read(id.Value);
             if (promoCode == null) {
                 return HttpNotFound();
             }
@@ -60,7 +60,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Code,Discount, IsValid")] PromoCode promoCode) {
             if (ModelState.IsValid) {
-                _promoCodeManager.Update(promoCode);
+                PromoManager.Update(promoCode);
                 return RedirectToAction("Index");
             }
             return View(promoCode);
@@ -71,7 +71,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PromoCode promoCode = _promoCodeManager.Read(id.Value);
+            PromoCode promoCode = PromoManager.Read(id.Value);
             if (promoCode == null) {
                 return HttpNotFound();
             }
@@ -83,9 +83,9 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
             try {
-                _promoCodeManager.Delete(id);
+                PromoManager.Delete(id);
             } catch (DbUpdateException) {
-                return View(new PromoCodeDeleteViewModel {PromoCode = _promoCodeManager.Read(id), ShitWentWrong = true});
+                return View(new PromoCodeDeleteViewModel {PromoCode = PromoManager.Read(id), ShitWentWrong = true});
             }
             return RedirectToAction("Index");
         }

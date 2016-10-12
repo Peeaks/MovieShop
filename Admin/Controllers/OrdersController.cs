@@ -10,28 +10,23 @@ using DLL;
 using DLL.Contexts;
 using DLL.Entities;
 
-namespace Admin.Controllers
-{
-    public class OrdersController : Controller
-    {
-        private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
+namespace Admin.Controllers {
+    public class OrdersController : Controller {
+        private IManager<Order, int> OrderManager => new DllFacade().GetOrderManager();
+
 
         // GET: Orders
-        public ActionResult Index()
-        {
-            return View(_orderManager.Read());
+        public ActionResult Index() {
+            return View(OrderManager.Read());
         }
 
         // GET: Orders/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
+        public ActionResult Details(int? id) {
+            if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = _orderManager.Read(id.Value);
-            if (order == null)
-            {
+            Order order = OrderManager.Read(id.Value);
+            if (order == null) {
                 return HttpNotFound();
             }
             return View(order);

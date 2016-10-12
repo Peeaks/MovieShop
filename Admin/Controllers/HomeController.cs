@@ -10,12 +10,13 @@ using DLL.Entities;
 
 namespace Admin.Controllers {
     public class HomeController : Controller {
-        readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
-        readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
+        private IManager<Movie, int> MovieManager => new DllFacade().GetMovieManager();
+        private IManager<Genre, int> GenreManager => new DllFacade().GetGenreManager();
+
 
         // GET: Movies
         public ActionResult Index() {
-            return View(_movieManager.Read());
+            return View(MovieManager.Read());
         }
 
         // GET: Movies/Details/5
@@ -23,7 +24,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = _movieManager.Read(id.Value);
+            Movie movie = MovieManager.Read(id.Value);
             if (movie == null) {
                 return HttpNotFound();
             }
@@ -32,7 +33,7 @@ namespace Admin.Controllers {
 
         // GET: Movies/Create
         public ActionResult Create() {
-            var viewModel = new CreateMovieViewModel { Genres = _genreManager.Read() };
+            var viewModel = new CreateMovieViewModel { Genres = GenreManager.Read() };
             return View(viewModel);
         }
 
@@ -43,7 +44,7 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl, Genre")] Movie movie) {
             if (ModelState.IsValid) {
-                _movieManager.Create(movie);
+                MovieManager.Create(movie);
                 return RedirectToAction("Index");
             }
 
@@ -55,11 +56,11 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = _movieManager.Read(id.Value);
+            Movie movie = MovieManager.Read(id.Value);
             if (movie == null) {
                 return HttpNotFound();
             }
-            var viewModel = new EditMovieViewModel { Genres = _genreManager.Read(), Movie = movie };
+            var viewModel = new EditMovieViewModel { Genres = GenreManager.Read(), Movie = movie };
             return View(viewModel);
         }
 
@@ -70,10 +71,10 @@ namespace Admin.Controllers {
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Year,Price,ImageUrl,TrailerUrl, Genre")] Movie movie) {
             if (ModelState.IsValid) {
-                _movieManager.Update(movie);
+                MovieManager.Update(movie);
                 return RedirectToAction("Index");
             }
-            var viewModel = new EditMovieViewModel { Genres = _genreManager.Read(), Movie = movie };
+            var viewModel = new EditMovieViewModel { Genres = GenreManager.Read(), Movie = movie };
             return View(viewModel);
         }
 
@@ -82,7 +83,7 @@ namespace Admin.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = _movieManager.Read(id.Value);
+            Movie movie = MovieManager.Read(id.Value);
             if (movie == null) {
                 return HttpNotFound();
             }
@@ -93,7 +94,7 @@ namespace Admin.Controllers {
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id) {
-            _movieManager.Delete(id);
+            MovieManager.Delete(id);
             return RedirectToAction("Index");
         }
     }

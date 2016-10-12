@@ -15,23 +15,16 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace AuthTest.Controllers {
     public class HomeController : Controller {
-        private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
-        private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
-        private readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
-
-        private readonly IManager<ApplicationUser, string> _applicationUserManager =
-            new DllFacade().GetApplicationUserManager();
-
-        private ApplicationUserManager _userManager;
-
-        public ApplicationUserManager UserManager {
-            get { return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>(); }
-            private set { _userManager = value; }
-        }
+        private IManager<Movie, int> MovieManager => new DllFacade().GetMovieManager();
+        private IManager<Order, int> OrderManager => new DllFacade().GetOrderManager();
+        private IManager<Genre, int> GenreManager => new DllFacade().GetGenreManager();
+        private IManager<ApplicationUser, string> ApplicationUserManager => new DllFacade().GetApplicationUserManager();
+        private ApplicationUserManager UserManager => HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        private ICartManager CartManager => new DllFacade().GetCartManager(this.HttpContext);
 
         // GET: Movie
         public ActionResult Index(int? page) {
-            var allMovies = _movieManager.Read();
+            var allMovies = MovieManager.Read();
 
             if (page == null) {
                 page = 1;
@@ -45,7 +38,7 @@ namespace AuthTest.Controllers {
                 return RedirectToAction("Index");
             }
 
-            var allMovies = _movieManager.Read();
+            var allMovies = MovieManager.Read();
 
             if (page == null) {
                 page = 1;
@@ -73,8 +66,8 @@ namespace AuthTest.Controllers {
                 return RedirectToAction("Index");
             }
 
-            var allMovies = _movieManager.Read();
-            var genreFound = _genreManager.Read(genreSearch.Value);
+            var allMovies = MovieManager.Read();
+            var genreFound = GenreManager.Read(genreSearch.Value);
 
             if (genreFound == null) {
                 return RedirectToAction("Index");
@@ -110,7 +103,7 @@ namespace AuthTest.Controllers {
                 Movies = returnMovies,
                 MaxPages = (movies.Count + 9)/12,
                 CurrentPage = page,
-                Genres = _genreManager.Read()
+                Genres = GenreManager.Read()
             };
         }
 
@@ -119,7 +112,7 @@ namespace AuthTest.Controllers {
             if (id == null) {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Movie movie = _movieManager.Read(id.Value);
+            Movie movie = MovieManager.Read(id.Value);
             if (movie == null) {
                 return HttpNotFound();
             }
@@ -128,19 +121,19 @@ namespace AuthTest.Controllers {
 
         [Authorize]
         public ActionResult BuyPage() {
-            Cart cart = CartManager.GetCartManager(this.HttpContext).GetCart();
-
             if (ModelState.IsValid) {
                 Order order;
 
+                var cart = CartManager.Read();
+
                 if (cart.PromoCode == null) {
                     order = new Order {
-                        ApplicationUser = _applicationUserManager.Read(User.Identity.GetUserId()),
+                        ApplicationUser = ApplicationUserManager.Read(User.Identity.GetUserId()),
                         Movies = cart.Movies
                     };
                 } else {
                     order = new Order {
-                        ApplicationUser = _applicationUserManager.Read(User.Identity.GetUserId()),
+                        ApplicationUser = ApplicationUserManager.Read(User.Identity.GetUserId()),
                         Movies = cart.Movies, PromoCode = cart.PromoCode
                     };
                 }
@@ -152,11 +145,9 @@ namespace AuthTest.Controllers {
         [ValidateAntiForgeryToken]
         [Authorize]
         public async Task<ActionResult> Confirm([Bind(Include = "Id, Movies, PromoCode, ApplicationUser")]Order order) {
-            var cartManager = CartManager.GetCartManager(this.HttpContext);
-            cartManager.EmptyCart();
+            CartManager.EmptyCart();
 
-
-            _orderManager.Create(order);
+            OrderManager.Create(order);
 
             const string subject = "Order receipt from Movie Shop";
             var body = new EmailTemplate.EmailTemplate().Receipt(order);
