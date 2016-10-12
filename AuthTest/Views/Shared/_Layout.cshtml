@@ -61,7 +61,6 @@
             @Html.Partial("_LoginPartial")
             <div class="nav navbar-nav navbar-right">
                 @using (Html.BeginForm("Search", "Home", FormMethod.Get, htmlAttributes: new {@class = "navbar-form", role = "search"})) {
-                    @Html.AntiForgeryToken()
                     <div class="input-group">
                         @Html.TextBox("search", "", new {@class = "form-control", placeholder = "Search"})
                         <div class="input-group-btn">

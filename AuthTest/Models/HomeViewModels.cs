@@ -18,4 +18,9 @@ namespace AuthTest.Models {
         public string ErrorMessage { get; set; }
     }
 
+    public class HomeGenreSearchViewModel {
+        public HomeIndexViewModel HomeIndexViewModel { get; set; }
+        public Genre Genre { get; set; }
+    }
+
 }

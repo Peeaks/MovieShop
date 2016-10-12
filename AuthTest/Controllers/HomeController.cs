@@ -40,7 +40,6 @@ namespace AuthTest.Controllers {
             return View(GetPage(allMovies, page.Value));
         }
 
-        [ValidateAntiForgeryToken]
         public ActionResult Search(int? page, string search) {
             if (search.IsNullOrWhiteSpace()) {
                 return RedirectToAction("Index");
@@ -66,6 +65,34 @@ namespace AuthTest.Controllers {
 
             return
                 View(new HomeSearchViewModel {HomeIndexViewModel = GetPage(returnMovies, page.Value), Search = search});
+        }
+
+        public ActionResult GenreSearch(int? page, int? genreSearch) {
+
+            if (genreSearch == null) {
+                return RedirectToAction("Index");
+            }
+
+            var allMovies = _movieManager.Read();
+            var genreFound = _genreManager.Read(genreSearch.Value);
+
+            if (genreFound == null) {
+                return RedirectToAction("Index");
+            }
+
+            if (page == null) {
+                page = 1;
+            }
+
+            var returnMovies = new List<Movie>();
+
+            foreach (var movie in allMovies) {
+                if (movie.Genre.Id == genreFound.Id) {
+                    returnMovies.Add(movie);
+                }
+            }
+
+            return View(new HomeGenreSearchViewModel {Genre = genreFound, HomeIndexViewModel = GetPage(returnMovies, page.Value)});
         }
 
         private HomeIndexViewModel GetPage(List<Movie> movies, int page) {
