@@ -10,19 +10,18 @@ using DLL.Managers;
 namespace AuthTest.Controllers {
     public class CartController : Controller {
         private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
-        private readonly IManager<PromoCode, string> _promoManager = new DllFacade().GetPromoCodeManager();
+        private readonly IManager<PromoCode, int> _promoManager = new DllFacade().GetPromoCodeManager();
 
-        // GET: /ShoppingCart/
         public ActionResult Index() {
             var cartManager = CartManager.GetCartManager(this.HttpContext);
             var cart = cartManager.GetCart();
             if (cart == null) {
                 cart = new Cart {Movies = new List<Movie>(), PromoCode = new PromoCode()};
             }
-            // Return the view
             return View(cart);
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult AddPromoCode(string promocode) {
 
             var cartManager = CartManager.GetCartManager(this.HttpContext);
@@ -32,8 +31,6 @@ namespace AuthTest.Controllers {
         }
 
 
-        //
-        // GET: /Store/AddToCart/5
         public ActionResult AddToCart(int id) {
             // Retrieve the movie from the database
             var movie = _movieManager.Read(id);
@@ -47,8 +44,6 @@ namespace AuthTest.Controllers {
             return RedirectToAction("Index");
         }
 
-        //
-        // AJAX: /ShoppingCart/RemoveFromCart/5
         [Authorize]
         public ActionResult RemoveFromCart(int id) {
             // Remove the item from the cart
@@ -65,14 +60,5 @@ namespace AuthTest.Controllers {
             return RedirectToAction("Index");
         }
 
-        //
-        // GET: /ShoppingCart/CartSummary
-        [ChildActionOnly]
-        public ActionResult CartSummary() {
-            var cart = CartManager.GetCartManager(this.HttpContext);
-
-            ViewData["CartCount"] = cart.GetCartItems().Count;
-            return PartialView("CartSummary");
-        }
     }
 }

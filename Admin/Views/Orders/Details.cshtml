@@ -12,40 +12,40 @@
         <div class="row">
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.Customer.FirstName)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.FirstName)
+                    @Html.DisplayFor(model => model.ApplicationUser.FirstName)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Customer.LastName)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.LastName)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.LastName)
+                    @Html.DisplayFor(model => model.ApplicationUser.LastName)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Customer.Email)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.Email)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.Email)
+                    @Html.DisplayFor(model => model.ApplicationUser.Email)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Customer.Address.StreetName)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.Address.StreetName)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.Address.StreetName) @Html.DisplayFor(model => model.Customer.Address.StreetNumber)
+                    @Html.DisplayFor(model => model.ApplicationUser.Address.StreetName) @Html.DisplayFor(model => model.ApplicationUser.Address.StreetNumber)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Customer.Address.ZipCode)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.Address.ZipCode)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.Address.ZipCode)
+                    @Html.DisplayFor(model => model.ApplicationUser.Address.ZipCode)
                 </dd>
                 <dt>
-                    @Html.DisplayNameFor(model => model.Customer.Address.Country)
+                    @Html.DisplayNameFor(model => model.ApplicationUser.Address.Country)
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.Customer.Address.Country)
+                    @Html.DisplayFor(model => model.ApplicationUser.Address.Country)
                 </dd>
             </dl>
         </div>
@@ -55,36 +55,10 @@
         <h4>Product info</h4>
         <div class="row">
             <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Movie.Title)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Movie.Title)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Movie.Year)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Movie.Year)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Movie.Genre)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Movie.Genre.Name)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Movie.Price)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Movie.Price)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.PromoCode)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.PromoCode.Code)
-                </dd>
+                @foreach (var movie in Model.Movies) {
+                    <dt>@movie.Title</dt>
+                }
+                <dt>Total price: @Model.TotalPrice$</dt>
             </dl>
         </div>
     </div>

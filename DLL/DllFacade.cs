@@ -17,7 +17,7 @@ namespace DLL {
         public IManager<Order, int> GetOrderManager() {
             return new OrderManager();
         }
-        public IManager<PromoCode, string> GetPromoCodeManager() {
+        public IManager<PromoCode, int> GetPromoCodeManager() {
             return new PromoCodeManager();
         }
         public IManager<ApplicationUser, string> GetApplicationUserManager() {

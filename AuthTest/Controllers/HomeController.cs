@@ -18,7 +18,6 @@ namespace AuthTest.Controllers {
         private readonly IManager<Movie, int> _movieManager = new DllFacade().GetMovieManager();
         private readonly IManager<Order, int> _orderManager = new DllFacade().GetOrderManager();
         private readonly IManager<Genre, int> _genreManager = new DllFacade().GetGenreManager();
-        private readonly IManager<PromoCode, string> _promoCodeManager = new DllFacade().GetPromoCodeManager();
 
         private readonly IManager<ApplicationUser, string> _applicationUserManager =
             new DllFacade().GetApplicationUserManager();
@@ -41,6 +40,7 @@ namespace AuthTest.Controllers {
             return View(GetPage(allMovies, page.Value));
         }
 
+        [ValidateAntiForgeryToken]
         public ActionResult Search(int? page, string search) {
             if (search.IsNullOrWhiteSpace()) {
                 return RedirectToAction("Index");
@@ -122,8 +122,9 @@ namespace AuthTest.Controllers {
             return RedirectToAction("Index", "Cart");
         }
 
+        [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<ActionResult> Confirm(Order order) {
+        public async Task<ActionResult> Confirm([Bind(Include = "Id, Movies, PromoCode, ApplicationUser")]Order order) {
             var cartManager = CartManager.GetCartManager(this.HttpContext);
             cartManager.EmptyCart();
 

@@ -184,6 +184,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\AdminMovieShop - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MovieShopAdmin - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\MovieShopAdmin.pubxml" />
     <None Include="Properties\PublishProfiles\MovieShopAdmin2.pubxml" />

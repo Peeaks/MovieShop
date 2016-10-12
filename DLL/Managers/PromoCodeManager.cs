@@ -8,7 +8,7 @@ using DLL.Contexts;
 using DLL.Entities;
 
 namespace DLL.Managers {
-    class PromoCodeManager : IManager<PromoCode, string> {
+    class PromoCodeManager : IManager<PromoCode, int> {
         public PromoCode Create(PromoCode element) {
             using (var db = new MovieShopContext()) {
                 db.PromoCodes.Add(element);
@@ -17,11 +17,11 @@ namespace DLL.Managers {
             }
         }
 
-        public bool Delete(string code) {
+        public bool Delete(int code) {
             using (var db = new MovieShopContext()) {
-                db.Entry(db.PromoCodes.FirstOrDefault(x => x.Code == code)).State = System.Data.Entity.EntityState.Deleted;
+                db.Entry(db.PromoCodes.FirstOrDefault(x => x.Id == code)).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
-                return db.PromoCodes.FirstOrDefault(x => x.Code == code) == null;
+                return db.PromoCodes.FirstOrDefault(x => x.Id == code) == null;
             }
         }
 
@@ -31,9 +31,9 @@ namespace DLL.Managers {
             }
         }
 
-        public PromoCode Read(string code) {
+        public PromoCode Read(int code) {
             using (var db = new MovieShopContext()) {
-                return db.PromoCodes.FirstOrDefault(x => x.Code == code);
+                return db.PromoCodes.FirstOrDefault(x => x.Id == code);
             }
         }
 
