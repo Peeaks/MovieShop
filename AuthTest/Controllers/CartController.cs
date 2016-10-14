@@ -21,7 +21,6 @@ namespace AuthTest.Controllers {
             return View(cart);
         }
 
-        [ValidateAntiForgeryToken]
         public ActionResult AddPromoCode(string promocode) {
             CartManager.AddPromoToCart(promocode);
 

@@ -69,7 +69,6 @@
                 <tr>
                     <td>
                         @using (Html.BeginForm("AddPromoCode", "Cart", FormMethod.Get, htmlAttributes: new {@class = "form-inline"})) {
-                            @Html.AntiForgeryToken()
                             <div class="input-group">
                                 @Html.TextBox("promocode", "", new {@class = "form-control", placeholder = "Enter Promo code"})
                                 <div class="input-group-btn">
